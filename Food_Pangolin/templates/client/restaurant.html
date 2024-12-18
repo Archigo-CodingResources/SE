@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>restaurant</title>
+</head>
+<body>
+<section>
+    <h1>餐廳列表</h1>
+
+    <table>
+        <tr>
+            <th>餐廳</th>
+        </tr>
+    </table>
+
+    <!-- Return to Personal Page if User is Logged In -->
+    {% if myname %} 
+    <div class="buttons">
+        <form action="/front">
+            <input type="submit" value="回個人頁面" class="return">
+        </form>
+    </div>
+    {% endif %}
+</section>
+</body>
+</html>
