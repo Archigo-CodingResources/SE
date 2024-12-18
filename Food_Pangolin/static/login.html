@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>loginPage</title>
+    </style>
+</head>
+<body>
+    <section class="login">
+        <p class="whatToDo">Sign in to your account</p>
+        <div class="loginwrap">
+            <form method="post" action="/login">
+                <table>
+                    <tr>
+                        <td>mail:</td>
+                        <td><input type="text" name="MAIL" required></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" name="PWD" required></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="butt">
+                                <input class="submit_butt" type="submit" value="Login">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        
+        <div class="regiwrap">
+            <p class="regi">Don't have an account ?</p>&nbsp;
+            <form action="/register">
+                <input type="submit" class="register-button" value="Register now">
+            </form>
+        </div>
+    </section>
+</body>
+</html>
