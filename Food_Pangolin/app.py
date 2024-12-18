@@ -29,10 +29,11 @@ def register():
 	name = form['NAME']
 	mail = form['MAIL']
 	pwd = form['PWD']
-	role = form['role']
+	role = form['ROLE']
 	user_from_mail = init.check_account(mail, pwd)
 	if user_from_mail == []:
-		init.regsiter(name, mail, pwd, role)
+		init.register(name, mail, pwd, role)
+		return redirect("/login.html")
 	return redirect("/register.html")
 
 @app.route("/login", methods=['GET','POST'])

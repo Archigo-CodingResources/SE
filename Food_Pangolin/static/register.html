@@ -12,8 +12,18 @@
     
     <section class="login">
         <p class="whatToDo">Create your account</p>
-        <form method="post" action="/addUser">
+        <form method="post" action="/register">
             <table>
+                <tr>
+                    <td>選擇身份</td>
+                    <td>
+                        <select id="role" name="ROLE">
+                            <option value="0">餐廳</option>
+                            <option value="1">外送員</option>
+                            <option value="2">客戶</option>
+                        </select>
+                    </td>
+                </tr>
                 <tr>
                     <td>Name:</td>
                     <td><input type="text" name="NAME" required></td>
