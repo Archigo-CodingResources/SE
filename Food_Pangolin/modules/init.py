@@ -18,3 +18,11 @@ def __init__():
         print(e)
         print("Error connecting to DB")
         exit(1)
+
+
+def check_account(Id, pwd):
+    cursor = __init__()
+    sql = "SELECT * FROM `account` WHERE id = %s and pwd = %s;"
+    param = (Id, pwd, )
+    cursor.execute(sql, param)
+    return cursor.fetchall()
