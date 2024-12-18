@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+</head>
+<body>
+    <div class="header-container">
+        <h1 class="header">Welcome to Join Us!</h1>
+    </div>
+    
+    <section class="login">
+        <p class="whatToDo">Create your account</p>
+        <form method="post" action="/addUser">
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" name="NAME" required></td>
+                </tr>
+                <tr>
+                    <td>Mail:</td>
+                    <td><input type="email" name="MAIL" required></td>
+                </tr>
+                <tr>
+                    <td>Set Password:</td>
+                    <td><input type="password" name="PWD" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="butt">
+                            <input class="submit_butt" type="submit" value="Register">
+                        </div>
+                        <a class="butt" href="/login">Back</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </section>
+</body>
+</html>
