@@ -26,7 +26,7 @@ Food_Pangolin
 │   ├── restaurant.py
 │   ├── delivery.py
 │   └── falsk.py
-└── module
+└── modules
     ├── client.py
     ├── restaurant.py
     └── delivery.py
