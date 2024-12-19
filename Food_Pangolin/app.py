@@ -64,3 +64,8 @@ def login():
     # 登录成功，保存用户登录信息到 session
     session['loginID'] = mail
     return redirect("/")
+
+@app.route("/logout", methods=['GET', 'POST'])
+def logout():
+    session.clear()
+    return redirect("/")
