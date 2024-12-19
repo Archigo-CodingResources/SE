@@ -1,27 +1,10 @@
 from flask import Flask, render_template, request, session, redirect
 from functools import wraps
-# from flask_sqlalchemy import SQLAlchemy
 from modules import init
 
 app = Flask(__name__, static_folder="static", static_url_path="/")
 app.config['SECRET_KEY'] = '123TyU%^&'
 
-# # 數據庫鏈接
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///restaurant.db'  # 記得幫我更換數據庫的URL
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# db = SQLAlchemy(app)
-
-# # 模型
-# class Menu(db.Model):
-#     __tablename__ = 'menu'
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(100), nullable=False)
-#     price = db.Column(db.Float, nullable=False)
-
-# # 獲取菜單數據
-# def get_vendor_menu():
-#     menu_items = Menu.query.all()
-#     return [{'name': item.name, 'price': item.price} for item in menu_items]
 
 # 登錄驗證
 def login_required(f):
