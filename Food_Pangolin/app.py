@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, session, redirect
+from flask import Flask, render_template, request, session, redirect
 from functools import wraps
 from modules import init
 
