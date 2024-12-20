@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, redirect
 from functools import wraps
-from modules import init
+from modules import init, restaurant
 
 app = Flask(__name__, static_folder="static", static_url_path="/")
 app.config['SECRET_KEY'] = '123TyU%^&'
@@ -19,10 +19,8 @@ def login_required(f):
 @app.route("/", methods=['GET', 'POST']) 
 @login_required
 def homepage():
-    # 獲取數據中菜單數據
-    menu = [{}]
-    myname = session.get('loginID', 'User')  # 獲取用戶登錄名稱
-    return render_template('/client/menu.html', menu=menu, myname=myname)
+    dest = '/restaurant/menu.html' if session['role'] == 0 else 'client/restaurant.html' if session['role'] == 1 else "delivery/order_list.html"
+    return render_template(dest)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -57,12 +55,13 @@ def login():
     
     # 检查用户凭据
     user_from_mail = init.check_account(mail, pwd)
-    print(user_from_mail)
+
     if user_from_mail == []:
         return redirect("/login")
     
     # 登录成功，保存用户登录信息到 session
     session['loginID'] = mail
+    session['role'] = user_from_mail[0]['role']
     return redirect("/")
 
 @app.route("/logout", methods=['GET', 'POST'])
