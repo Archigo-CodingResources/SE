@@ -11,14 +11,14 @@
     <table>
         <tr>
             <th>餐廳名稱</th>
-            <th>action</th>
+            <th>查看菜單</th>
         </tr>
         {% for rec in data %}
         <tr>
             <td>{{rec.name}}</td>
             <td>
                 <form action="/">
-                    <input type="submit" value="查看菜單">
+                    <input type="submit" value="go">
                 </form>
             </td>
         </tr>
