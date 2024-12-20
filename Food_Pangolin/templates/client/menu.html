@@ -12,12 +12,18 @@
         <tr>
             <th>餐點名稱</th>
             <th>價格</th>
+            <th>數量</th>
             <th>操作</th>
         </tr>
         {% for item in data[0].data %}
             <tr>
                 <td>{{ item.name }}</td>
                 <td>${{ item.price }}</td>
+                <td>
+                    <button onclick="decrease(this)">-</button>
+                    <span class="counter">0</span>
+                    <button onclick="increase(this)">+</button>
+                </td>
                 <td>
                     <form action="/cart" method="POST">
                         <input type="submit" name="{{item.food_id}}" value="加入購物車">
@@ -35,5 +41,23 @@
             <input type="submit" value="返回列表">
         </form>
     </div>
+
+    <script>
+        // Function to increase the counter
+        function increase(button) {
+            const counterSpan = button.previousElementSibling; // Get the <span> element
+            let count = parseInt(counterSpan.textContent);
+            counterSpan.textContent = count + 1; // Increment count
+        }
+
+        // Function to decrease the counter
+        function decrease(button) {
+            const counterSpan = button.nextElementSibling; // Get the <span> element
+            let count = parseInt(counterSpan.textContent);
+            if (count > 0) { // Ensure count does not go below 0
+                counterSpan.textContent = count - 1;
+            }
+        }
+    </script>
 </body>
 </html>
