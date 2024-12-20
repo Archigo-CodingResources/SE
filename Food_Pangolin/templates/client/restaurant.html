@@ -11,8 +11,18 @@
     {% for rec in data %}
     <table>
         <tr>
-            <th>rec.name</th>
+            <th>餐廳名稱</th>
+            <th>action</th>
         </tr>
+        <tr>
+            <td>rec.name</td>
+            <td>
+                <form action="">
+                    <input type="submit" value="查看菜單">
+                </form>
+            </td>
+        </tr>
+
     </table>
     {% endfor %}
     <!-- Return to Personal Page if User is Logged In -->
