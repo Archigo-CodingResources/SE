@@ -19,7 +19,7 @@ def login_required(f):
 @app.route("/", methods=['GET', 'POST']) 
 @login_required
 def homepage():
-    dest = '/restaurant/menu.html' if session['role'] == 0 else 'client/restaurant.html' if session['role'] == 1 else "delivery/order_list.html"
+    dest = '/restaurant/menu.html' if session['role'] == 0 else "delivery/order_list.html" if session['role'] == 1 else 'client/restaurant.html'
     return render_template(dest)
 
 @app.route("/register", methods=['GET', 'POST'])

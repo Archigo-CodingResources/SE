@@ -25,13 +25,11 @@
         {% endfor %}
     </table>
     <!-- Return to Personal Page if User is Logged In -->
-    {% if myname %} 
     <div class="buttons">
-        <form action="/front">
-            <input type="submit" value="回個人頁面" class="return">
+        <form action="/logout">
+            <input type="submit" value="登出" class="return">
         </form>
     </div>
-    {% endif %}
 </section>
 </body>
 </html>
