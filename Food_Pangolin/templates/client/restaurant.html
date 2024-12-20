@@ -17,9 +17,7 @@
         <tr>
             <td>{{rec.name}}</td>
             <td>
-                <form action="/{{ rec.rID }}">
-                    <input type="submit" value="go">
-                </form> 
+                <a href="/menu?id={{rec.id}}">go</a>
             </td>
         </tr>
         {% endfor %}
