@@ -8,13 +8,13 @@
 <body>
 <section>
     <h1>餐廳列表</h1>
-
+    {% for rec in data %}
     <table>
         <tr>
-            <th>餐廳</th>
+            <th>rec.name</th>
         </tr>
     </table>
-
+    {% endfor %}
     <!-- Return to Personal Page if User is Logged In -->
     {% if myname %} 
     <div class="buttons">
