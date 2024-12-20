@@ -22,7 +22,10 @@ def homepage():
     dest = '/restaurant/menu.html' if session['role'] == 0 else "delivery/order_list.html" if session['role'] == 1 else 'client/restaurant.html'
     data = [{}]
     if session['role'] == 2:
-        data = restaurant.get_restaurant()
+        data = [{
+            "name":session['name'],
+            "data":restaurant.get_restaurant()
+            }]
     return render_template(dest, data=data)
 
 @app.route("/menu", methods=['GET']) 
@@ -30,7 +33,10 @@ def homepage():
 def menu():
     form = request.args
     rid = form['id']
-    data = restaurant.get_menu(int(rid))
+    data = [{
+        "name":session['name'],
+        "data":restaurant.get_menu(int(rid))
+        }]
     return render_template("client/menu.html", data=data)
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -72,6 +78,7 @@ def login():
     
     # 登录成功，保存用户登录信息到 session
     session['loginID'] = mail
+    session['name'] = user_from_mail[0]['name']
     session['role'] = user_from_mail[0]['role']
     return redirect("/")
 

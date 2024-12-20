@@ -8,12 +8,13 @@
 <body>
 <section>
     <h1>餐廳列表</h1>
+    歡迎，{{data[0].name}}
     <table>
         <tr>
             <th>餐廳名稱</th>
             <th>查看菜單</th>
         </tr>
-        {% for rec in data %}
+        {% for rec in data[0].data %}
         <tr>
             <td>{{rec.name}}</td>
             <td>

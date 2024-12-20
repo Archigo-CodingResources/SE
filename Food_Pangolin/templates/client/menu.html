@@ -7,13 +7,13 @@
 </head>
 <body>
     <h1>餐廳菜單</h1>
-    <p>歡迎，{{ myname }}！</p>
+    <p>歡迎，{{ data[0].name }}！</p>
     <table border="1">
         <tr>
             <th>餐點名稱</th>
             <th>價格</th>
         </tr>
-        {% for item in data %}
+        {% for item in data[0].data %}
             <tr>
                 <td>{{ item.name }}</td>
                 <td>${{ item.price }}</td>
