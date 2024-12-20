@@ -23,7 +23,6 @@ def homepage():
     data = [{}]
     if session['role'] == 2:
         data = restaurant.get_restaurant()
-        
     return render_template(dest, data=data)
 
 @app.route("/register", methods=['GET', 'POST'])
