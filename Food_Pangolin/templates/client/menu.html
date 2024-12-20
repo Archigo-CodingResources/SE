@@ -23,13 +23,13 @@
                     <button onclick="decrease(this)">-</button>
                     <span class="counter">0</span>
                     <button onclick="increase(this)">+</button>
+                    <input type="hidden" name="total" value="0">
                 </td>
                 <td>
-                    <form action="/cart" method="POST">
+                    <form action="/cart" method="POST" onsubmit="redirectToCart(item.food_id)">
                         <input type="hidden" name="food_id" value="{{ item.food_id }}">
-                        <!-- 對應數量的隱藏輸入框 -->
                         <input type="hidden" name="quantity" value="0">
-                        <input type="submit" value="加入購物車">
+                        <input type="submit" value="加入購物車" >
                     </form>
                 </td>
             </tr>
@@ -46,28 +46,43 @@
     </div>
 
     <script>
-        // Function to increase the counter and update the hidden input value
         function increase(button) {
-            const counterSpan = button.previousElementSibling; // Get the <span> element
-            const form = button.closest('tr').querySelector('form'); // Get the form in the same row
-            const hiddenInput = form.querySelector('input[name="quantity"]'); // Hidden input for quantity
+            const counterSpan = button.previousElementSibling;
+            const form = button.closest('tr').querySelector('form');
+            const hiddenInput = form.querySelector('input[name="quantity"]');
+            const total = form.querySelector('input[name="total"]');
     
             let count = parseInt(counterSpan.textContent);
-            counterSpan.textContent = count + 1; // Increment count
-            hiddenInput.value = count + 1; // Update hidden input value
+            counterSpan.textContent = count + 1;
+            hiddenInput.value = count + 1;
+            total.value = count + 1;
         }
     
-        // Function to decrease the counter and update the hidden input value
         function decrease(button) {
-            const counterSpan = button.nextElementSibling; // Get the <span> element
-            const form = button.closest('tr').querySelector('form'); // Get the form in the same row
-            const hiddenInput = form.querySelector('input[name="quantity"]'); // Hidden input for quantity
+            const counterSpan = button.nextElementSibling;
+            const form = button.closest('tr').querySelector('form');
+            const hiddenInput = form.querySelector('input[name="quantity"]');
     
             let count = parseInt(counterSpan.textContent);
-            if (count > 0) { // Ensure count does not go below 0
+            if (count > 0) {
                 counterSpan.textContent = count - 1;
-                hiddenInput.value = count - 1; // Update hidden input value
+                hiddenInput.value = count - 1;
+                total.value = count - 1;
             }
+        }
+
+        function redirectToCart(foodId) {
+            // 獲取數量輸入框的值
+            const quantity = document.getElementById(`quantity`).value;
+
+            if (quantity <= 0){
+                alert("請輸入有效的數量（大於 0）");
+                event.preventDefault(); // 阻止表單提交
+                return false;
+            }
+
+            // 使用 JavaScript 跳轉到 Flask 的路由，傳遞多個參數
+            window.location.href = `/cart?food_id=${foodId}&quantity=${quantity}`;
         }
     </script>
 </body>

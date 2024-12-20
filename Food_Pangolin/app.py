@@ -43,6 +43,7 @@ def menu():
 @login_required
 def cart():
     form = request.form
+    print(form)
     return render_template("client/menu.html")
 
 @app.route("/register", methods=['GET', 'POST'])
