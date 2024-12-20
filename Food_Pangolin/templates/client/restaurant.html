@@ -8,23 +8,22 @@
 <body>
 <section>
     <h1>餐廳列表</h1>
-    {% for rec in data %}
     <table>
         <tr>
             <th>餐廳名稱</th>
             <th>action</th>
         </tr>
+        {% for rec in data %}
         <tr>
             <td>rec.name</td>
-            <td> 
+            <td>
                 <form action="/">
                     <input type="submit" value="查看菜單">
                 </form>
             </td>
         </tr>
-
+        {% endfor %}
     </table>
-    {% endfor %}
     <!-- Return to Personal Page if User is Logged In -->
     <div class="buttons">
         <form action="/logout">
