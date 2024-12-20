@@ -25,6 +25,14 @@ def homepage():
         data = restaurant.get_restaurant()
     return render_template(dest, data=data)
 
+@app.route("/menu", methods=['GET']) 
+@login_required
+def menu():
+    form = request.args
+    rid = form['id']
+    data = restaurant.get_menu(int(rid))
+    return render_template("client/menu.html", data=data)
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if request.method == "GET":

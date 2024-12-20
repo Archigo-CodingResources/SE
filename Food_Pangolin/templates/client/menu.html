@@ -13,10 +13,10 @@
             <th>餐點名稱</th>
             <th>價格</th>
         </tr>
-        {% for item in menu %}
+        {% for item in data %}
             <tr>
-                <td>{{ item['name'] }}</td>
-                <td>${{ item['price'] }}</td>
+                <td>{{ item.name }}</td>
+                <td>${{ item.price }}</td>
             </tr>
         {% else %}
         {% endfor %}
@@ -24,6 +24,9 @@
     <div>
         <form action="/logout" method="POST">
             <input type="submit" value="登出">
+        </form>
+        <form action="/" method="POST">
+            <input type="submit" value="返回列表">
         </form>
     </div>
 </body>

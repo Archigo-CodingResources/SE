@@ -8,7 +8,7 @@ def get_restaurant():
     return cursor.fetchall()
 
 def get_menu(rid):
-    sql = "SELECT * FROM `account` WHERE rid = %s;"
+    sql = "SELECT * FROM `food` WHERE rid = %s;"
     param = (rid, )
     cursor.execute(sql, param)
     return cursor.fetchall()
