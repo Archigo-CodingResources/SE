@@ -26,7 +26,10 @@
                 </td>
                 <td>
                     <form action="/cart" method="POST">
-                        <input type="submit" name="{{item.food_id}}" value="加入購物車">
+                        <input type="hidden" name="food_id" value="{{ item.food_id }}">
+                        <!-- 對應數量的隱藏輸入框 -->
+                        <input type="hidden" name="quantity" value="0">
+                        <input type="submit" value="加入購物車">
                     </form>
                 </td>
             </tr>
@@ -43,19 +46,27 @@
     </div>
 
     <script>
-        // Function to increase the counter
+        // Function to increase the counter and update the hidden input value
         function increase(button) {
             const counterSpan = button.previousElementSibling; // Get the <span> element
+            const form = button.closest('tr').querySelector('form'); // Get the form in the same row
+            const hiddenInput = form.querySelector('input[name="quantity"]'); // Hidden input for quantity
+    
             let count = parseInt(counterSpan.textContent);
             counterSpan.textContent = count + 1; // Increment count
+            hiddenInput.value = count + 1; // Update hidden input value
         }
-
-        // Function to decrease the counter
+    
+        // Function to decrease the counter and update the hidden input value
         function decrease(button) {
             const counterSpan = button.nextElementSibling; // Get the <span> element
+            const form = button.closest('tr').querySelector('form'); // Get the form in the same row
+            const hiddenInput = form.querySelector('input[name="quantity"]'); // Hidden input for quantity
+    
             let count = parseInt(counterSpan.textContent);
             if (count > 0) { // Ensure count does not go below 0
                 counterSpan.textContent = count - 1;
+                hiddenInput.value = count - 1; // Update hidden input value
             }
         }
     </script>

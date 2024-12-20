@@ -39,6 +39,12 @@ def menu():
         }]
     return render_template("client/menu.html", data=data)
 
+@app.route("/cart", methods=['POST']) 
+@login_required
+def cart():
+    form = request.form
+    return render_template("client/menu.html")
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if request.method == "GET":
