@@ -15,7 +15,7 @@
         </tr>
         {% for rec in data %}
         <tr>
-            <td>rec.name</td>
+            <td>{{rec.name}}</td>
             <td>
                 <form action="/{{ rec.gID }}">
                     <input type="submit" value="go">
