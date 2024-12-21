@@ -6,22 +6,24 @@
     <title>修改餐點</title>
 </head>
 <body>
-<form action="/fixfoods/{{ data.gID }}" method="post">
+<form action="/fixfood" method="post">
     <table>
         <tr>
             <td>餐點名稱：</td>
-            <td><input type="text" name="NAME" value="{{ data.name }}" required></td>
+            <td><input type="text" name="NAME" value="{{ data[0]['data'][0].name }}" required></td>
         </tr>
         <tr>
             <td>商品描述：</td>
-            <td><input type="text" name="DESCRIPTION" value="{{ data.descirption }}" required></td>
+            <td><input type="text" name="DESCRIPTION" value="{{ data[0]['data'][0].description }}" required></td>
         </tr>
         <tr>
             <td>價格：</td>
-            <td><input type="number" name="PRICE" value="{{ data.price }}" min="1" required></td>
+            <td><input type="number" name="PRICE" value="{{ data[0]['data'][0].price }}" min="1" required></td>
         </tr>
         <tr>
             <td colspan="2" style="text-align: center;">
+                <input type="hidden" name="RID" value="{{ rid }}">
+                <input type="hidden" name="FOOD_ID" value="{{ food_id }}">
                 <input class="submit_butt" type="submit" value="確認">
             </td>
         </tr>

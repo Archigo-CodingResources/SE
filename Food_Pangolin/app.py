@@ -48,6 +48,62 @@ def homepage():
         
     return render_template(dest, data=data)
 
+
+
+@app.route("/addfoodUI", methods=['GET']) 
+@login_required
+def addfood():
+    reload_db()
+    form = request.args
+    rid = form['id']
+    dest = '/restaurant/addfoodUI.html'
+    return render_template(dest, rid = rid)
+
+
+@app.route("/addfood", methods=['GET', 'POST']) 
+@login_required
+def add():
+    reload_db()
+    form = request.form
+    rid = form['RID']
+    name = form['NAME']
+    description = form['DESCRIPTION']
+    price = form['PRICE']
+    restaurant.add_item(name, description, price, rid)
+    dest = f'/menu?id={rid}'
+    return redirect(dest)
+
+
+@app.route("/fixfoodUI", methods=['GET']) 
+@login_required
+def fixfood():
+    reload_db()
+    form = request.args
+    rid = form['id']
+    food_id = form['food_id']
+    data = [
+        {
+            "data":restaurant.get_food(food_id)
+        }
+    ]
+    dest = '/restaurant/fixfoodUI.html'
+    return render_template(dest, rid=rid, food_id=food_id, data=data)
+
+@app.route("/fixfood", methods=['GET', 'POST']) 
+@login_required
+def fix():
+    reload_db()
+    form = request.form
+    rid = form['RID']
+    food_id = form['FOOD_ID']
+    name = form['NAME']
+    description = form['DESCRIPTION']
+    price = form['PRICE']
+    restaurant.fix_item(name, description, price, food_id)
+    dest = f'/menu?id={rid}'
+    return redirect(dest)
+
+
 @app.route("/menu", methods=['GET']) 
 @login_required
 def menu():
