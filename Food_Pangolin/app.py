@@ -56,7 +56,6 @@ def cart():
     reload_db()
     if request.method == "POST":
         form = request.form
-        print(form)
         rid = form['rid']
 
         if form['action'] == "clear":
