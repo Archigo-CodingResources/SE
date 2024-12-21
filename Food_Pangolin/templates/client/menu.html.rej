@@ -1,9 +1,0 @@
-diff a/Food_Pangolin/templates/client/menu.html b/Food_Pangolin/templates/client/menu.html	(rejected hunks)
-@@ -20,6 +20,7 @@
-             <tr>
-                 <td>{{ item.name }}</td>
-                 <td>${{ item.price }}</td>
-+                <td>{{ item.description }}</td>
-                 <td>
-                     <button onclick="decrease(this)">-</button>
-                     <span class="counter">0</span>
