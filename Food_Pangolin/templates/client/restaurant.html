@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>restaurant</title>
+    <title>Restaurant</title>
 </head>
 <body>
 <section>
     <h1>餐廳列表</h1>
-    歡迎，{{data[0].name}}
+    <!-- 顯示當前用戶的名稱 -->
+    歡迎，{{ session['name'] }}
     <table>
         <tr>
             <th>餐廳名稱</th>
             <th>查看菜單</th>
         </tr>
+        <!-- 顯示餐廳列表 -->
         {% for rec in data[0].data %}
         <tr>
-            <td>{{rec.name}}</td>
+            <td>{{ rec.name }}</td>
             <td>
-                <a href="/menu?id={{rec.id}}">go</a>
+                <a href="/menu?id={{ rec.id }}">Go</a>
             </td>
         </tr>
         {% endfor %}
     </table>
-    <!-- Return to Personal Page if User is Logged In -->
+    <!-- 返回個人頁面 -->
     <div class="buttons">
         <form action="/logout">
             <input type="submit" value="登出" class="return">

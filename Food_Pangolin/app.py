@@ -18,7 +18,7 @@ def login_required(f):
     def wrapper(*args, **kwargs):
         loginID = session.get('loginID')
         if not loginID:
-            return redirect('/login.html')  # 如果没有登录，跳转到登录页面
+            return redirect('/login.html')  # 如果沒登錄跳轉至登錄界面
         return f(*args, **kwargs)
     return wrapper
 
@@ -26,6 +26,7 @@ def login_required(f):
 @login_required
 def homepage():
     reload_db()
+    #0(用戶)，1(外送員),2(商家)
     dest = '/restaurant/order.html' if session['role'] == 0 else "delivery/order_list.html" if session['role'] == 1 else 'client/restaurant.html'
     data = [{}]
 
@@ -50,7 +51,7 @@ def homepage():
 @app.route("/menu", methods=['GET']) 
 @login_required
 def menu():
-    reload_db()
+    reload_db() #重新載入資料庫
     form = request.args
     rid = form['id']
     if "action" in form and form['action'] == "remove":
@@ -82,7 +83,7 @@ def menu():
 
 @app.route("/cart", methods=['GET', 'POST']) 
 @login_required
-def cart():
+def cart(): #購物車功能
     reload_db()
     if request.method == "POST":
         form = request.form
@@ -127,39 +128,39 @@ def register():
     if request.method == "GET":
         return redirect("register.html")
     
-    # 处理 POST 请求（提交注册表单）
+    #处理POST请求（提交注册表单）
     form = request.form
     name = form['NAME']
     mail = form['MAIL']
     pwd = form['PWD']
     role = form['ROLE']
     
-    # 检查用户是否已存在
+    #檢查用戶存在
     user_from_mail = init.check_account(mail, pwd)
     if user_from_mail == []:
         # 如果没有找到，进行注册
         init.register(name, mail, pwd, role)
-        return redirect("/login.html")  # 注册后跳转到登录页面
+        return redirect("/login.html")  #註冊結束跳轉至登錄界面
     
-    return redirect("/register.html")  # 如果注册失败，重新返回注册页面
+    return redirect("/register.html")  # 如果註冊失敗，跳回註冊界面
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == "GET":
         return redirect("/login.html")
     
-    # 处理 POST 请求（提交登录表单）
+    #處理POST请求（提交登录表单）
     form = request.form
     mail = form['MAIL']
     pwd = form['PWD']
     
-    # 检查用户凭据
+    #檢查用戶憑據
     user_from_mail = init.check_account(mail, pwd)
 
     if user_from_mail == []:
         return redirect("/login")
     
-    # 登录成功，保存用户登录信息到 session
+   #登錄成功後，保存資料到session
     session['loginID'] = mail
     session['name'] = user_from_mail[0]['name']
     session['id'] = user_from_mail[0]['id']
@@ -170,3 +171,17 @@ def login():
 def logout():
     session.clear()
     return redirect("/")
+                     
+@app.route("/submit_feedback", methods=["POST"])
+def submit_feedback_form():
+    order_id = request.form['order_id']
+    rating = int(request.form['rating'])
+    feedback = request.form['feedback']
+    client.submit_feedback(order_id, rating, feedback)
+    return redirect(url_for('restaurant'))
+
+@app.route("/restaurant")
+@login_required
+def restaurant():
+    data = client.get_restaurant() 
+    return render_template("restaurant.html", data=data)
