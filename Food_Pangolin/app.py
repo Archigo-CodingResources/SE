@@ -178,4 +178,4 @@ def submit_feedback_form():
     rating = int(request.form['rating'])
     feedback = request.form['feedback']
     client.submit_feedback(order_id, rating, feedback)
-    return redirect(url_for('index'))
+    return redirect(url_for('restaurant'))
