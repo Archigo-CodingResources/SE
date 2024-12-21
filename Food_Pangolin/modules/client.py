@@ -28,6 +28,13 @@ def remove_cart(food_id, cid):
     conn.commit()
     return
 
+def clear_cart(cid):
+    sql = "DELETE FROM `cart` WHERE cid = %s"
+    param = (cid, )
+    cursor.execute(sql, param)
+    conn.commit()
+    return
+
 def update_cart(food_id, quantity, cid):
     sql = "UPDATE `cart` SET `food_id`= %s, `quantity`= %s WHERE cid = %s"
     param = (food_id, quantity, cid)

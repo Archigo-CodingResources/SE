@@ -47,11 +47,11 @@ def cart():
         form = request.form
         rid = form['rid']
 
-        if form['action'] == "cart":
-            pass
+        if form['action'] == "clear":
+            client.clear_cart(session['id'])
 
         elif form['action'] == "remove":
-            client.remove_cart(food_id, session['id'])
+            client.remove_cart(form['food_id'], session['id'])
 
         elif form['action'] == "add":
                 
@@ -78,7 +78,6 @@ def cart():
          "rid":rid
         }
              ]
-    print(data)
 
     return render_template("client/cart.html", data=data)
 
