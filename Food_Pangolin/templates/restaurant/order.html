@@ -7,22 +7,27 @@
 </head>
 <body>
     <p>歡迎，{{data[0].name}}！</p>
-{% for item in data[0].data %}
+    
+{% for items in data[0].data %}
 <table>
-    <caption>{{ item.id }}</caption>
     <tr>
         <th>商品</th>
         <th>數量</th>
+        <th>價格</th>
+        <th>點餐人</th>
     </tr>
-    {% for rec2 in order_content %}
+    {% for item in items %}
         <tr>
-            <td>{{ rec2.name }}</td>
-            <td>{{ rec2.quantity }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.cid }}</td>
         </tr>
     {% endfor %}
     <tr>
-        <td colspan="2">{{ "這裡塞總價格" }}</td>
+        <td colspan="2">總金額：{{items[2]}} $</td>
     </tr>
+    
 </table>
 {% endfor %}
 

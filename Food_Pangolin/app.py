@@ -30,10 +30,13 @@ def homepage():
     data = [{}]
 
     if session['role'] == 0:
+        cart = restaurant.get_order(int(session['id']))
+
+        cart_data = restaurant.compose_order(cart)
         data = [
             {
                 "name":session['name'],
-                "data":restaurant.get_menu(int(session['id']))
+                "data":cart_data
                 }
             ]
     elif session['role'] == 2:
