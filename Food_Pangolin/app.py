@@ -1,9 +1,15 @@
 from flask import Flask, render_template, request, session, redirect
 from functools import wraps
 from modules import init, restaurant, client
+from importlib import reload
 
 app = Flask(__name__, static_folder="static", static_url_path="/")
 app.config['SECRET_KEY'] = '123TyU%^&'
+
+def reload_db():
+    reload(init)
+    reload(restaurant)
+    reload(client)
 
 
 # 登錄驗證
@@ -19,6 +25,7 @@ def login_required(f):
 @app.route("/", methods=['GET', 'POST']) 
 @login_required
 def homepage():
+    reload_db()
     dest = '/restaurant/menu.html' if session['role'] == 0 else "delivery/order_list.html" if session['role'] == 1 else 'client/restaurant.html'
     data = [{}]
     if session['role'] == 2:
@@ -31,6 +38,7 @@ def homepage():
 @app.route("/menu", methods=['GET']) 
 @login_required
 def menu():
+    reload_db()
     form = request.args
     rid = form['id']
     data = [{
@@ -40,11 +48,15 @@ def menu():
         }]
     return render_template("client/menu.html", data=data)
 
+
+
 @app.route("/cart", methods=['GET', 'POST']) 
 @login_required
 def cart():
+    reload_db()
     if request.method == "POST":
         form = request.form
+        print(form)
         rid = form['rid']
 
         if form['action'] == "clear":

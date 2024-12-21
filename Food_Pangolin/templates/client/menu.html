@@ -69,6 +69,7 @@
             const counterSpan = button.nextElementSibling;
             const form = button.closest('tr').querySelector('form');
             const hiddenInput = form.querySelector('input[name="quantity"]');
+            const total = form.querySelector('input[name="total"]');
     
             let count = parseInt(counterSpan.textContent);
             if (count > 0) {

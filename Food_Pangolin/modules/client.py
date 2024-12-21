@@ -36,8 +36,8 @@ def clear_cart(cid):
     return
 
 def update_cart(food_id, quantity, cid):
-    sql = "UPDATE `cart` SET `food_id`= %s, `quantity`= %s WHERE cid = %s"
-    param = (food_id, quantity, cid)
+    sql = "UPDATE `cart` SET `quantity`= %s WHERE cid = %s and food_id = %s"
+    param = (quantity, cid, food_id,)
     cursor.execute(sql, param)
     conn.commit()
     return

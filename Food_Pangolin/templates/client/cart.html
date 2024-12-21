@@ -23,7 +23,7 @@
                 <td>${{ item.price }}</td>
                 <td>
                     <button onclick="decrease(this)">-</button>
-                    <span class="counter">{{data[0].data[0].quantity}}</span>
+                    <span class="counter">{{item.quantity}}</span>
                     <button onclick="increase(this)">+</button>
                     <input type="hidden" name="total" value="0">
                 </td>
@@ -55,6 +55,7 @@
     </div>
 
     {% if data[0].data %}
+    {% for item in data[0].data %}
     <script>
         function increase(button) {
             const counterSpan = button.previousElementSibling;
@@ -79,15 +80,17 @@
                 hiddenInput.value = count - 1;
                 total.value = count - 1;
             }
-
+            
+            
             else{
                 const isConfirmed = window.confirm("確定要移除嗎?");
                 if (isConfirmed) {
-                    window.location.href = `/cart?food_id={{data[0].data[0].food_id}}&rid={{data[0].rid}}`;
+                    window.location.href = `/cart?food_id={{item.food_id}}&rid={{data[0].rid}}`;
             }
         }
     }
     </script>
+    {% endfor %}
     {% endif %}
 </body>
 </html>
