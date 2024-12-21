@@ -26,7 +26,7 @@ def login_required(f):
 @login_required
 def homepage():
     reload_db()
-    dest = '/restaurant/menu.html' if session['role'] == 0 else "delivery/order_list.html" if session['role'] == 1 else 'client/restaurant.html'
+    dest = '/restaurant/order.html' if session['role'] == 0 else "delivery/order_list.html" if session['role'] == 1 else 'client/restaurant.html'
     data = [{}]
     if session['role'] == 2:
         data = [{
