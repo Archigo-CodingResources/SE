@@ -31,15 +31,14 @@ def homepage():
 
     if session['role'] == 0:
         cart = restaurant.get_order(int(session['id']))
-        cart_data = restaurant.compose_order(cart)
 
+        cart_data = restaurant.compose_order(cart)
         data = [
             {
                 "name":session['name'],
                 "data":cart_data
                 }
             ]
-        
     elif session['role'] == 2:
         data = [{
             "name":session['name'],
@@ -54,7 +53,6 @@ def menu():
     reload_db()
     form = request.args
     rid = form['id']
-
     if "action" in form and form['action'] == "remove":
         restaurant.remove_item(rid, form['food_id'])
 
