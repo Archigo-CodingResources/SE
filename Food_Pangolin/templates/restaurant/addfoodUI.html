@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增餐點</title>
+</head>
+<body>
+<form method="post" action="/addfood">
+    <table>
+        <tr>
+            <td>餐點名稱：</td>
+            <td><input type="text" name="NAME" required></td>
+        </tr>
+        <tr>
+            <td>商品描述：</td>
+            <td><input type="text" name="DESCRIPTION" required></td>
+        </tr>
+        <tr>
+            <td>價格：</td>
+            <td><input type="number" name="PRICE" required min="1"></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center; padding-top:15px;">
+                <input class="submit_butt" type="submit" value="ADD">
+            </td>
+        </tr>
+    </table>
+</form>
+
+<button class="back-button" onclick="history.back()">返回上一頁</button>
+
+</body>
+</html>
