@@ -6,10 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-
-{% for rec1 in order %}
+    <p>歡迎，{{data[0].name}}！</p>
+{% for item in data[0].data %}
 <table>
-    <caption>{{ rec1.oid }}</caption>
+    <caption>{{ item.id }}</caption>
     <tr>
         <th>商品</th>
         <th>數量</th>
@@ -26,7 +26,7 @@
 </table>
 {% endfor %}
 
-<a href="/menu?id={{ session 裡的 id }}">view menu</a>
+<a href="/menu?id={{ session['id'] }}">view menu</a>
 
 </body>
 </html>

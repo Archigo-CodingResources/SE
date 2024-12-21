@@ -26,13 +26,22 @@ def login_required(f):
 @login_required
 def homepage():
     reload_db()
-    dest = '/restaurant/menu.html' if session['role'] == 0 else "delivery/order_list.html" if session['role'] == 1 else 'client/restaurant.html'
+    dest = '/restaurant/order.html' if session['role'] == 0 else "delivery/order_list.html" if session['role'] == 1 else 'client/restaurant.html'
     data = [{}]
-    if session['role'] == 2:
+
+    if session['role'] == 0:
+        data = [
+            {
+                "name":session['name'],
+                "data":restaurant.get_menu(int(session['id']))
+                }
+            ]
+    elif session['role'] == 2:
         data = [{
             "name":session['name'],
-            "data":restaurant.get_restaurant()
+            "data":client.get_restaurant()
             }]
+        
     return render_template(dest, data=data)
 
 @app.route("/menu", methods=['GET']) 
@@ -44,9 +53,11 @@ def menu():
     data = [{
         "name":session['name'],
         "rid":rid,
-        "data":restaurant.get_menu(int(rid)),
+        "data":client.get_menu(int(rid)),
         }]
-    return render_template("client/menu.html", data=data)
+
+    dest = '/restaurant/menu.html' if session['role'] == 0 else 'client/menu.html' if session['role'] == 2 else ""
+    return render_template(dest, data=data)
 
 
 

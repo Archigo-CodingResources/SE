@@ -2,6 +2,17 @@ from modules import init
 
 cursor, conn = init.get_cursor()
 
+def get_restaurant():
+    sql = "SELECT * FROM `account` WHERE role = 0;"
+    cursor.execute(sql)
+    return cursor.fetchall()
+
+def get_menu(rid):
+    sql = "SELECT * FROM `food` WHERE rid = %s;"
+    param = (rid, )
+    cursor.execute(sql, param)
+    return cursor.fetchall()
+
 def get_cart(cid):
     sql = "SELECT * FROM `cart` inner join `food` on food.food_id = cart.food_id where cid = %s"
     param = (cid, )
