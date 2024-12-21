@@ -38,3 +38,23 @@ def get_order(rid):
     param = (rid, )
     cursor.execute(sql, param)
     return cursor.fetchall()
+
+def add_item(name, description, price, rid):
+    sql = "INSERT INTO food (name, description, price, rid) VALUES (%s, %s, %s, %s);"
+    param = (name, description, price, rid)
+    cursor.execute(sql, param)
+    conn.commit()
+    return
+
+def get_food(food_id):
+    sql = "SELECT * FROM food where food_id = %s"
+    param = (food_id,)
+    cursor.execute(sql, param)
+    return cursor.fetchall()
+
+def fix_item(name, description, price, food_id):
+    sql = "UPDATE food SET name=%s, description=%s, price=%s WHERE food_id=%s;"
+    param = (name, description, price, food_id)
+    cursor.execute(sql, param)
+    conn.commit()
+    return
