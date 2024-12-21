@@ -13,7 +13,7 @@ Food_Pangolin
 │   │   ├── restaurant.html
 │   │   ├── menu.html
 │   │   ├── cart.html
-│   │   └── give_comment.html
+│   │   └── feedback.html
 │   ├── restaurant
 │   │   ├── menu.html
 │   │   └── order.html
