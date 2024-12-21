@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, redirect
 from functools import wraps
-from modules import init, restaurant, client
+from modules import init, client, restaurant
 from importlib import reload
 
 app = Flask(__name__, static_folder="static", static_url_path="/")
@@ -180,8 +180,8 @@ def submit_feedback_form():
     client.submit_feedback(order_id, rating, feedback)
     return redirect(url_for('restaurant'))
 
-@app.route("/restaurant")
-@login_required
-def restaurant():
-    data = client.get_restaurant() 
-    return render_template("restaurant.html", data=data)
+# @app.route("/restaurant")
+# @login_required
+# def restaurant():
+#     data = client.get_restaurant() 
+#     return render_template("restaurant.html", data=data)
