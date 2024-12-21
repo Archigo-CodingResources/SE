@@ -171,7 +171,7 @@ def login():
 def logout():
     session.clear()
     return redirect("/")
-
+                     
 @app.route("/submit_feedback", methods=["POST"])
 def submit_feedback_form():
     order_id = request.form['order_id']
@@ -179,3 +179,9 @@ def submit_feedback_form():
     feedback = request.form['feedback']
     client.submit_feedback(order_id, rating, feedback)
     return redirect(url_for('restaurant'))
+
+@app.route("/restaurant")
+@login_required
+def restaurant():
+    data = client.get_restaurant() 
+    return render_template("restaurant.html", data=data)
