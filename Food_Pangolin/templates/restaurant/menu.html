@@ -6,8 +6,7 @@
     <title>菜單內容</title>
 </head>
 <body>
-
-<a href="/addfoodUI?id={{ data[0].data[0].rid }}&action=add">新增</a>
+<a href="/addfoodUI?id={{ data[0].rid }}&action=add">新增</a>
 <table>
     <tr>
         <th>餐點名稱</th>
@@ -22,7 +21,7 @@
     		<td>{{ item.price }}</td>
             <td>
                 <div class="buttwrap">
-                    <a href="/fixfoodUI?id={{ item.food_id }}&food_id={{ item.food_id }}">修改</a>
+                    <a href="/fixfoodUI?id={{ item.rid }}&food_id={{ item.food_id }}">修改</a>
                     <a href="/menu?id={{ item.rid }}&food_id={{ item.food_id }}&action=remove" onclick="return confirm('確定要刪除 {{ item.name }} 嗎？')">刪除</a>
                 </div>
             </td>

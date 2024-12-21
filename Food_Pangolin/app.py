@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, redirect
 from functools import wraps
-from modules import init, restaurant, client
+from modules import init, client, restaurant
 from importlib import reload
 
 app = Flask(__name__, static_folder="static", static_url_path="/")
@@ -118,6 +118,7 @@ def menu():
             {
                 "name":session['name'],
                 "data":restaurant.get_menu(int(rid)),
+                "rid":rid
             }
         ]
         dest = '/restaurant/menu.html'
@@ -228,6 +229,7 @@ def logout():
     session.clear()
     return redirect("/")
 
+<<<<<<< HEAD
 # @app.route("/submit_feedback", methods=["POST"])
 # def submit_feedback_form():
 #     order_id = request.form['order_id']
@@ -236,6 +238,8 @@ def logout():
 #     client.submit_feedback(order_id, rating, feedback)
 #     return redirect(url_for('restaurant'))
 
+=======
+>>>>>>> 89de49d24852bb6f4fc3a42b9d2338973ae7f03b
 # @app.route("/restaurant")
 # @login_required
 # def restaurant():
