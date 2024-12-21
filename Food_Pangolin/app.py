@@ -53,13 +53,29 @@ def menu():
     reload_db()
     form = request.args
     rid = form['id']
-    data = [{
-        "name":session['name'],
-        "rid":rid,
-        "data":client.get_menu(int(rid)),
-        }]
+    if "action" in form and form['action'] == "remove":
+        restaurant.remove_item(rid, form['food_id'])
 
-    dest = '/restaurant/menu.html' if session['role'] == 0 else 'client/menu.html' if session['role'] == 2 else ""
+    if session['role'] == 0:
+        data = [
+            {
+                "name":session['name'],
+                "data":restaurant.get_menu(int(rid)),
+            }
+        ]
+        dest = '/restaurant/menu.html'
+
+    if session['role'] == 2:
+        data = [
+            {
+                "name":session['name'],
+                "rid":rid,
+                "data":client.get_menu(int(rid)),
+            }
+        ]
+        dest = 'client/menu.html'
+
+    
     return render_template(dest, data=data)
 
 

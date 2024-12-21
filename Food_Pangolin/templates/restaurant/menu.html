@@ -15,15 +15,15 @@
         <th>價格</th>
         <th>操作</th>
     </tr>
-    {% for rec in data %}
+    {% for item in data[0].data %}
     	<tr>
-    		<td>{{ rec.name }}</td>
-            <td>{{ rec.discribe }}</td>
-    		<td>{{ rec.price }}</td>
+    		<td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+    		<td>{{ item.price }}</td>
             <td>
                 <div class="buttwrap">
-                    <a href="/fix?id={{ rec.food_id }}">修改</a>
-                    <a href="/delete?id={{ rec.food_id }}" onclick="return confirm('確定要刪除 {{ rec.name }} 嗎？')">刪除</a>
+                    <a href="/fix?id={{ item.food_id }}">修改</a>
+                    <a href="/menu?id={{ item.rid }}&food_id={{ item.food_id }}&action=remove" onclick="return confirm('確定要刪除 {{ item.name }} 嗎？')">刪除</a>
                 </div>
             </td>
     	</tr>

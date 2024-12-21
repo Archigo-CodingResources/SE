@@ -20,6 +20,19 @@ def compose_order(cart_data):
 
     return grouped_by_cid
 
+def get_menu(rid):
+    sql = "SELECT * FROM `food` WHERE rid = %s;"
+    param = (rid, )
+    cursor.execute(sql, param)
+    return cursor.fetchall()
+
+def remove_item(rid, food_id):
+    sql = "DELETE FROM `food` WHERE food_id = %s and rid = %s"
+    param = (food_id, rid)
+    cursor.execute(sql, param)
+    conn.commit()
+    return
+
 def get_order(rid):
     sql = "SELECT * FROM `cart` inner join `food` on cart.food_id = food.food_id where food.rid = %s"
     param = (rid, )
