@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+{% for rec1 in order %}
+<table>
+    <caption>{{ rec1.oid }}</caption>
+    <tr>
+        <th>商品</th>
+        <th>數量</th>
+    </tr>
+    {% for rec2 in order_content %}
+        <tr>
+            <td>{{ rec2.name }}</td>
+            <td>{{ rec2.quantity }}</td>
+        </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="2">{{ "這裡塞總價格" }}</td>
+    </tr>
+</table>
+{% endfor %}
+
+<a href="/menu?id={{ session 裡的 id }}">view menu</a>
+
+</body>
+</html>
