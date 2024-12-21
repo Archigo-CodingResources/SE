@@ -52,3 +52,10 @@ def update_cart(food_id, quantity, cid):
     cursor.execute(sql, param)
     conn.commit()
     return
+
+def submit_feedback(order_id, rating, feedback):   
+    sql = "INSERT INTO `feedback`(`order_id`, `rating`, `feedback`) VALUES (%s, %s, %s)"
+    param = (order_id, rating, feedback) 
+    cursor.execute(sql, param)
+    conn.commit()
+    return
