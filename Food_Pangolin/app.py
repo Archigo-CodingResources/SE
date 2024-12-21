@@ -180,8 +180,8 @@ def submit_feedback_form():
     client.submit_feedback(order_id, rating, feedback)
     return redirect(url_for('restaurant'))
 
-# @app.route("/restaurant")
-# @login_required
-# def restaurant():
-#     data = client.get_restaurant() 
-#     return render_template("restaurant.html", data=data)
+@app.route("/restaurant")
+@login_required
+def restaurant():
+    data = client.get_restaurant() 
+    return render_template("restaurant.html", data=data)
