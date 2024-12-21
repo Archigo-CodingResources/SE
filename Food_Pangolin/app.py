@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, redirect
 from functools import wraps
-from modules import init, restaurant
+from modules import init, restaurant, client
 
 app = Flask(__name__, static_folder="static", static_url_path="/")
 app.config['SECRET_KEY'] = '123TyU%^&'
@@ -35,16 +35,52 @@ def menu():
     rid = form['id']
     data = [{
         "name":session['name'],
-        "data":restaurant.get_menu(int(rid))
+        "rid":rid,
+        "data":restaurant.get_menu(int(rid)),
         }]
     return render_template("client/menu.html", data=data)
 
-@app.route("/cart", methods=['POST']) 
+@app.route("/cart", methods=['GET', 'POST']) 
 @login_required
 def cart():
-    form = request.form
-    print(form)
-    return render_template("client/menu.html")
+    if request.method == "POST":
+        form = request.form
+        rid = form['rid']
+
+        if form['action'] == "cart":
+            pass
+
+        elif form['action'] == "remove":
+            client.remove_cart(food_id, session['id'])
+
+        elif form['action'] == "add":
+                
+            food_id = int(form['food_id'])
+            quantity = int(form['quantity'])
+
+            now_item = client.get_item(session['id'], food_id)
+
+            if now_item == []:
+                client.add_cart(food_id, quantity, session['id'])
+
+            else:
+                quantity += now_item[0]['quantity']
+                client.update_cart(food_id, quantity, session['id'])
+
+    else:
+        args = request.args
+        rid = args['rid']
+        client.remove_cart(args['food_id'], session['id'])
+
+    data = [
+        {"name":session['name'],
+         "data":client.get_cart(session['id']),
+         "rid":rid
+        }
+             ]
+    print(data)
+
+    return render_template("client/cart.html", data=data)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -86,6 +122,7 @@ def login():
     # 登录成功，保存用户登录信息到 session
     session['loginID'] = mail
     session['name'] = user_from_mail[0]['name']
+    session['id'] = user_from_mail[0]['id']
     session['role'] = user_from_mail[0]['role']
     return redirect("/")
 

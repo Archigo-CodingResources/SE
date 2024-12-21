@@ -8,7 +8,7 @@
 <body>
     <h1>餐廳菜單</h1>
     <p>歡迎，{{ data[0].name }}！</p>
-    <table border="1">
+    <table>
         <tr>
             <th>餐點名稱</th>
             <th>價格</th>
@@ -23,12 +23,14 @@
                     <button onclick="decrease(this)">-</button>
                     <span class="counter">0</span>
                     <button onclick="increase(this)">+</button>
-                    <input type="hidden" name="total" value="0">
                 </td>
                 <td>
                     <form action="/cart" method="POST" onsubmit="return validateQuantity(this)">
                         <input type="hidden" name="food_id" value="{{ item.food_id }}">
                         <input type="hidden" name="quantity" value="0">
+                        <input type="hidden" name="total" value="0">
+                        <input type="hidden" name="rid" value="{{ data[0].rid}}">
+                        <input type="hidden" name="action" value="add">
                         <input type="submit" value="加入購物車" >
                     </form>
                 </td>
@@ -39,6 +41,11 @@
     <div>
         <form action="/logout" method="POST">
             <input type="submit" value="登出">
+        </form>
+        <form action="/cart" method="POST">
+            <input type="hidden" name="action" value="cart">
+            <input type="hidden" name="rid" value="{{ data[0].rid}}">
+            <input type="submit" value="查看購物車">
         </form>
         <form action="/" method="POST">
             <input type="submit" value="返回列表">
@@ -71,21 +78,8 @@
             }
         }
 
-        // function redirectToCart(foodId) {
-        //     // 獲取數量輸入框的值
-        //     const quantity = document.getElementById(`quantity`).value;
-
-        //     if (quantity <= 0){
-        //         alert("請輸入有效的數量（大於 0）");
-        //         event.preventDefault(); // 阻止表單提交
-        //         return false;
-        //     }
-
-        //     // 使用 JavaScript 跳轉到 Flask 的路由，傳遞多個參數
-        //     window.location.href = `/cart?food_id=${foodId}&quantity=${quantity}`;
-        // }
         function validateQuantity(form) {
-            const quantityInput = form.querySelector('input[name="quantity"]'); // 找到隱藏的數量輸入框
+            const quantityInput = form.querySelector('input[name="total"]'); // 找到隱藏的數量輸入框
             const quantity = parseInt(quantityInput.value);
                 
             if (quantity <= 0) {

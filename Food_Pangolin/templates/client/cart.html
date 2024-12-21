@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>購物車</title>
+</head>
+<body>
+    <h1>購物車</h1>
+    <p>歡迎，{{ data[0].name }}！</p>
+    <table>
+        
+        <tr>
+            <th>餐點名稱</th>
+            <th>價格</th>
+            <th>數量</th>
+            <th>操作</th>
+        </tr>
+        {% if data[0].data %}
+        {% for item in data[0].data %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>${{ item.price }}</td>
+                <td>
+                    <button onclick="decrease(this)">-</button>
+                    <span class="counter">{{data[0].data[0].quantity}}</span>
+                    <button onclick="increase(this)">+</button>
+                    <input type="hidden" name="total" value="0">
+                </td>
+                <td>
+                    <form action="/cart" method="POST" onsubmit="return window.confirm('確定要移除嗎?')">
+                        <input type="hidden" name="food_id" value="{{ item.food_id }}">
+                        <input type="hidden" name="action" value="remove">
+                        <input type="submit" value="移除購物車" >
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
+    <div>
+        <form action="/logout" method="POST">
+            <input type="submit" value="登出">
+        </form>
+        <a href="/menu?id={{data[0].rid}}">繼續購物</a>
+        <form action="/" method="POST">
+            <input type="submit" value="返回列表">
+        </form>
+    </div>
+
+    {% if data[0].data %}
+    <script>
+        function increase(button) {
+            const counterSpan = button.previousElementSibling;
+            const form = button.closest('tr').querySelector('form');
+            const hiddenInput = form.querySelector('input[name="quantity"]');
+            const total = form.querySelector('input[name="total"]');
+    
+            let count = parseInt(counterSpan.textContent);
+            counterSpan.textContent = count + 1;
+            hiddenInput.value = count + 1;
+            total.value = count + 1;
+        }
+    
+        function decrease(button) {
+            const counterSpan = button.nextElementSibling;
+            const form = button.closest('tr').querySelector('form');
+            const hiddenInput = form.querySelector('input[name="quantity"]');
+    
+            let count = parseInt(counterSpan.textContent);
+            if (count > 0) {
+                counterSpan.textContent = count - 1;
+                hiddenInput.value = count - 1;
+                total.value = count - 1;
+            }
+
+            else{
+                const isConfirmed = window.confirm("確定要移除嗎?");
+                if (isConfirmed) {
+                    window.location.href = `/cart?food_id={{data[0].data[0].food_id}}&rid={{data[0].rid}}`;
+            }
+        }
+    }
+    </script>
+    {% endif %}
+</body>
+</html>
