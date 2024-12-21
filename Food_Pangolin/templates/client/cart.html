@@ -41,6 +41,7 @@
     </table>
     <div>
         <form action="/menu?id={{data[0].rid}}" method="POST">
+            <input type="hidden" name="rid" value="{{data[0].rid}}">
             <input type="submit" value="送出">
         </form>
         <form action="/logout" method="POST">

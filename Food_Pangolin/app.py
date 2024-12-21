@@ -104,34 +104,47 @@ def fix():
     return redirect(dest)
 
 
-@app.route("/menu", methods=['GET']) 
+@app.route("/menu", methods=['GET', 'POST']) 
 @login_required
 def menu():
     reload_db() #重新載入資料庫
-    form = request.args
-    rid = form['id']
-    if "action" in form and form['action'] == "remove":
-        restaurant.remove_item(rid, form['food_id'])
+    if request.method == "GET":
+        form = request.args
+        rid = form['id']
+        if "action" in form and form['action'] == "remove":
+            restaurant.remove_item(rid, form['food_id'])
 
-    if session['role'] == 0:
-        data = [
-            {
-                "name":session['name'],
-                "data":restaurant.get_menu(int(rid)),
-                "rid":rid
-            }
-        ]
-        dest = '/restaurant/menu.html'
+        if session['role'] == 0:
+            data = [
+                {
+                    "name":session['name'],
+                    "data":restaurant.get_menu(int(rid)),
+                    "rid":rid
+                }
+            ]
+            dest = '/restaurant/menu.html'
 
-    if session['role'] == 2:
-        data = [
-            {
-                "name":session['name'],
-                "rid":rid,
-                "data":client.get_menu(int(rid)),
-            }
-        ]
+        if session['role'] == 2:
+            data = [
+                {
+                    "name":session['name'],
+                    "rid":rid,
+                    "data":client.get_menu(int(rid)),
+                }
+            ]
+            dest = 'client/menu.html'
+
+    else:
+        form = request.form
+        rid = form['rid']
         dest = 'client/menu.html'
+        data = [
+                {
+                    "name":session['name'],
+                    "rid":rid,
+                    "data":client.get_menu(int(rid)),
+                }
+            ]
 
     
     return render_template(dest, data=data)
