@@ -12,6 +12,7 @@
         <tr>
             <th>餐點名稱</th>
             <th>價格</th>
+            <th>描述</th>
             <th>數量</th>
             <th>操作</th>
         </tr>
@@ -19,6 +20,7 @@
             <tr>
                 <td>{{ item.name }}</td>
                 <td>${{ item.price }}</td>
+                <td>{{ item.description }}</td>
                 <td>
                     <button onclick="decrease(this)">-</button>
                     <span class="counter">0</span>

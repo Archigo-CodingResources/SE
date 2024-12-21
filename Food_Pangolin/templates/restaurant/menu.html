@@ -3,41 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>菜單內容</title>
 </head>
 <body>
+
+<a href="/addfood">新增</a>
 <table>
     <tr>
-        <th>名稱</th>
+        <th>餐點名稱</th>
         <th>描述</th>
         <th>價格</th>
-        <th>動作</th>
+        <th>操作</th>
     </tr>
     {% for rec in data %}
     	<tr>
     		<td>{{ rec.name }}</td>
             <td>{{ rec.discribe }}</td>
-    		<td>{{ rec.highprice }}</td>
+    		<td>{{ rec.price }}</td>
             <td>
                 <div class="buttwrap">
-                    {% if rec.uID == rec.uID_highprice %}
-                    <form action="/fix/{{ rec.gID }}">
-                        <input class="fix" type="submit" value="修改">
-                    </form>
-                    {% endif %}
-                    <form action="/info/{{ rec.gID }}">
-                        <input class="infor" type="submit" value="詳細資訊">
-                    </form> 
-                    {% if rec.uID == rec.uID_highprice %}
-                    <form action="/deletegoods/{{ rec.gID }}" onsubmit="return confirmDelete()">
-                        <input class="delete" type="submit" value="刪除">
-                    </form>
-                    {% endif %}
-                    
+                    <a href="/fix?id={{ rec.food_id }}">修改</a>
+                    <a href="/delete?id={{ rec.food_id }}" onclick="return confirm('確定要刪除 {{ rec.name }} 嗎？')">刪除</a>
                 </div>
             </td>
     	</tr>
     {% endfor %}
 </table>
+
+<button class="back-button" onclick="history.back()">返回上一頁</button>
+
+<form action="/logout" method="POST">
+    <input type="submit" value="登出">
+</form>
+
 </body>
 </html>
+
