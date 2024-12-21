@@ -118,6 +118,7 @@ def menu():
             {
                 "name":session['name'],
                 "data":restaurant.get_menu(int(rid)),
+                "rid":rid
             }
         ]
         dest = '/restaurant/menu.html'
