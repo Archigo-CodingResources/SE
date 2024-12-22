@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>餐點詳細資訊</title>
+</head>
+<body>
+<h1>餐點詳細資訊</h1>
+<table>
+    <caption>訂單編號：{{ oid }}-餐點內容</caption>
+    {% for rec in data %}
+        <tr>
+            <td>{{ rec.name }}</td>
+            <td>{{ rec.quantity }}</td>
+            <!-- 這裡看要不要加 單價*數量 的金額 -->
+        </tr>
+    {% endfor %}
+</table>
+
+<table>
+    <caption>位置資訊</caption>
+    <tr>
+        <th>餐廳名稱</th>
+        <th>餐廳地址</th>
+        <th>送餐地址</th>
+    </tr>
+    <tr>
+        <td>{{ rec.restaurant_name }}</td>
+        <td>{{ rec.restaurant_addr }}</td>
+        <td>{{ rec.client_addr }}</td>
+    </tr>
+</table>
+
+<a href="/own_order?oid={{ oid }}" id="confirmOrderLink">確認接單</a> <!-- 我覺得the_order裡面要有cart_id，直接連購物車找資料？ -->
+
+
+<a href="/own_order">查看已接訂單</a>
+
+
+<a href="/order_list">返回訂單列表</a>
+
+
+<form action="/logout" method="POST">
+    <input type="submit" value="登出">
+</form>
+
+
+
+
+
+<script>
+    document.getElementById('confirmOrderLink').addEventListener('click', function (event) {
+      const userConfirmed = confirm('確定要確認接單嗎？');
+      if (!userConfirmed) {
+        event.preventDefault(); // 阻止連結跳轉
+      }
+    });
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
