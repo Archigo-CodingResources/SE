@@ -234,9 +234,18 @@ def order_info():
     time = args['time']
 
     order_info = delivery.get_order_info(time)
-    order_data = delivery.merge_order_info(order_info)
+    order_data, total = delivery.merge_order_info(order_info)
 
-    return render_template("/delivery/order_info.html", data=order_data)
+    data = [
+        {
+        "total": total,
+        "data": order_data
+    }
+    ]
+
+    
+
+    return render_template("/delivery/order_info.html", data=data)
 
 @app.route("/own_order", methods=["GET"])
 def own_order_list():

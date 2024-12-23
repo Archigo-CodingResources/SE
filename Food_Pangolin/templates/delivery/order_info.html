@@ -15,18 +15,17 @@
         <td>商品價格</td>
         <!-- 這裡看要不要加 單價*數量 的金額 -->
     </tr>
-    {% set total = data[-1] %}
-    {% for rec in data %}
+    {% for rec in data[0].data %}
         <tr>
             <td>{{ rec.name }}</td>
             <td>{{ rec.quantity }}</td>
-            <td>{{rec.price}}</td>
+            <td>{{rec.price}} $</td>
         </tr>
     {% endfor %}
 
     <tr>
         <td>應付價格</td>
-        <td>{{ total }}$</td>
+        <td>{{ data[0].total }} $</td>
     </tr>
     
 </table>
@@ -38,7 +37,7 @@
         <th>餐廳地址</th>
         <th>送餐地址</th>
     </tr>
-    {% for rec in data %}
+    {% for rec in data[0].data %}
     {% if loop.first %}
     <tr>
         <td>{{ rec.r_addr }}</td>

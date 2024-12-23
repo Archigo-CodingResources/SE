@@ -27,8 +27,7 @@ def merge_order_info(orders):
     for order in orders:
         total += order['price'] * order['quantity']
 
-    orders.append(total)
-    return orders
+    return orders, total
 
 
 def get_order():
