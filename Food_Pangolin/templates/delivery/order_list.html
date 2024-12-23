@@ -17,17 +17,16 @@
         <th>詳細資訊</th>
     </tr>
     {% for orders in data[0].data %}
-    {% set order_len = orders | length %}
     {% for order in orders %}
     {% set order_num = orders[-1] %}
-    {% if order.status != 2 %}
+    {% if order.status == 0 %}
         <tr>
             {% if loop.first %}
-            <td rowspan="{{order_len}}">{{ order_num }}</td>
-            <td rowspan="{{order_len}}">{{ order.r_name }}</td>
-            <td rowspan="{{order_len}}">{{ order.r_addr }}</td>
-            <td rowspan="{{order_len}}">{{ order.c_addr }}</td>
-            <td rowspan="{{order_len}}" style="text-align: center;">
+            <td>{{ order_num }}</td>
+            <td>{{ order.r_name }}</td>
+            <td>{{ order.r_addr }}</td>
+            <td>{{ order.c_addr }}</td>
+            <td style="text-align: center;">
                 <a href="/info?oid={{order.oid}}&time={{order.time}}">go</a>
             </td>
             {% endif %}
@@ -35,7 +34,7 @@
     {% endif %}
     {% endfor %}
 
-    {% if orders[0].status != 2 %}
+    {% if orders[0].status == 0%}
     <tr><td colspan="5"><hr></td></tr>
     {% endif %}
     {% endfor %}

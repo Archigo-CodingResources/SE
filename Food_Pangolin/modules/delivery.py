@@ -32,7 +32,7 @@ def merge_order_info(orders):
 
 
 def get_order():
-    sql = "SELECT the_order.oid, the_order.cid, the_order.time, rid as r_id, name as r_name, account.address as r_addr, the_order.address as c_addr, the_order.status from the_order inner join account on the_order.rid = account.id where the_order.status != 2;"
+    sql = "SELECT the_order.oid, the_order.cid, the_order.time, rid as r_id, name as r_name, account.address as r_addr, the_order.address as c_addr, the_order.status from the_order inner join account on the_order.rid = account.id where the_order.status = 0;"
     cursor.execute(sql)
     return cursor.fetchall()
 
