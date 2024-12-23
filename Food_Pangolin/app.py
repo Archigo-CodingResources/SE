@@ -236,7 +236,6 @@ def order_info():
     order_info = delivery.get_order_info(time)
 
     return render_template("/delivery/order_info.html", data=order_info)
-    
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
