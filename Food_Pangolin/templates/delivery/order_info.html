@@ -48,7 +48,13 @@
     {% endfor %}
 </table>
 
-<a href="/own_order?cid={{ data[0].cid }}&time={{data[0].time}}" id="confirmOrderLink">確認接單</a> <!-- 我覺得the_order裡面要有cart_id，直接連購物車找資料？ -->
+{% if data[0].data[0].status == 0 %}
+<a href="/own_order?cid={{ data[0].cid }}&time={{data[0].time}}" id="confirmOrderLink">確認接單</a>
+{% endif %}
+
+{% if data[0].data[0].status == 1 %}
+<a href="/confirm_order?cid={{ data[0].data[0].cid }}&time={{data[0].data[0].time}}" id="finishOrderLink">完成送單</a>
+{% endif %}
 
 
 <a href="/own_order">查看已接訂單</a>
@@ -62,7 +68,14 @@
 </form>
 
 
-
+<script>
+    document.getElementById('finishOrderLink').addEventListener('click', function (event) {
+      const userConfirmed = confirm('確定要完成送單嗎？');
+      if (!userConfirmed) {
+        event.preventDefault(); // 阻止連結跳轉
+      }
+    });
+  </script>
 
 
 <script>

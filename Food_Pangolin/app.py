@@ -260,6 +260,15 @@ def own_order_list():
     data = delivery.compose_order(order)
     return render_template("/delivery/own_order_list.html", data=data)
 
+@app.route("/confirm_order", methods=["GET"])
+def confirm_order():
+    args = request.args
+    cid = args['cid']
+    time = args['time']
+    delivery.confirm_order(session['id'], cid, time)
+
+    return redirect("/own_order")
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if request.method == "GET":
