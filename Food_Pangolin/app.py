@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect
 from functools import wraps
 from datetime import datetime
-from modules import init, client, restaurant
+from modules import init, client, restaurant, delivery
 from importlib import reload
 
 app = Flask(__name__, static_folder="static", static_url_path="/")
@@ -11,6 +11,7 @@ def reload_db():
     reload(init)
     reload(restaurant)
     reload(client)
+    reload(delivery)
 
 
 # 登錄驗證
@@ -29,11 +30,9 @@ def homepage():
     reload_db()
     #0(用戶)，1(外送員),2(商家)
     dest = '/restaurant/order.html' if session['role'] == 0 else "delivery/order_list.html" if session['role'] == 1 else 'client/restaurant.html'
-    data = [{}]
 
     if session['role'] == 0:
         cart = restaurant.get_order(int(session['id']))
-
         cart_data = restaurant.compose_order(cart)
 
         data = [
@@ -42,6 +41,16 @@ def homepage():
                 "data":cart_data
                 }
             ]
+        
+    elif session['role'] == 1:
+        order = delivery.get_order()
+        order_data = delivery.compose_order(order)
+
+        data = [{
+            "name":session['name'],
+            "data":order_data
+            }]
+
     elif session['role'] == 2:
         data = [{
             "name":session['name'],

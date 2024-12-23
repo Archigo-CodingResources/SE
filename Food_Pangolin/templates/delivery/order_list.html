@@ -7,6 +7,7 @@
 </head>
 <body>
 <h1>訂單列表</h1>
+<p>歡迎，{{data[0].name}}！</p>
 <table>
     <tr>
         <th>訂單編號</th>
@@ -15,17 +16,23 @@
         <th>送餐地址</th>
         <th>詳細資訊</th>
     </tr>
-    {% for rec in data %}
+    {% for orders in data[0].data %}
+    {% for order in orders %}
         <tr>
-            <td>{{ rec.oid }}</td>
-            <td>{{ rec.restaurant_name }}</td>
-            <td>{{ rec.restaurant_addr }}</td>
-            <td>{{ rec.client_addr }}</td>
+            <td>{{ order.oid }}</td>
+            <td>{{ order.r_name }}</td>
+            <td>{{ order.r_addr }}</td>
+            <td>{{ order.c_addr }}</td>
+            {% if loop.last %}
             <td>
-                <a href="/info?cart_id={{ rec.cart_id }}">go</a>  <!-- 我覺得the_order裡面要有cart_id，直接連購物車找資料？ -->
+                <a href="/info?cart_id={{order.oid}}">go</a>  <!-- 我覺得the_order裡面要有cart_id，直接連購物車找資料？ -->
             </td>
+            {% endif %}
         </tr>
     {% endfor %}
+    <tr><td colspan="5"><hr></td></tr>
+    {% endfor %}
+    
 </table>
 
 <a href="/own_order">查看已接訂單</a>
