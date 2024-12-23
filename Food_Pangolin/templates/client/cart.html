@@ -9,7 +9,6 @@
     <h1>購物車</h1>
     <p>歡迎，{{ data[0].name }}！</p>
     <table>
-        
         <tr>
             <th>餐點名稱</th>
             <th>價格</th>
@@ -40,7 +39,13 @@
         {% endif %}
     </table>
     <div>
-        <form action="/menu?id={{data[0].rid}}" method="POST">
+        <form action="/menu" method="POST">
+            {% for item in data[0].data %}
+            <input type="hidden" name="food_id" value="{{item.food_id}}">
+            <input type="hidden" name="quantity" value="{{item.quantity}}">
+            <input type="hidden" name="price" value="{{item.price}}">
+            {% endfor %}
+            <input type="hidden" name="cid" value="{{data[0].cid}}">
             <input type="hidden" name="rid" value="{{data[0].rid}}">
             <input type="submit" value="送出">
         </form>

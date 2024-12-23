@@ -136,7 +136,13 @@ def menu():
 
     else:
         form = request.form
+        order, cid = client.compose_order(form)
+    
+        for key, value in order.items():
+            client.send_order(form['rid'], key, value['quantity'], value['price'], cid)
+
         rid = form['rid']
+
         dest = 'client/menu.html'
         data = [
                 {
@@ -187,7 +193,8 @@ def cart(): #購物車功能
     data = [
         {"name":session['name'],
          "data":client.get_cart(session['id']),
-         "rid":rid
+         "rid":rid,
+         "cid":session['id']
         }
              ]
 

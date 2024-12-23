@@ -2,6 +2,22 @@ from modules import init
 
 cursor, conn = init.get_cursor()
 
+def compose_order(form):
+    food_id = form.getlist("food_id")
+    quantity = form.getlist("quantity")
+    price = form.getlist("price")
+    cid = form['cid']
+
+    data = {}
+
+    for i in range(min(len(food_id), len(quantity), len(price))):
+        data[food_id[i]] = {
+            "quantity": int(quantity[i]),
+            "price": int(price[i])
+            }
+
+    return data, cid
+
 def get_restaurant():
     sql = "SELECT * FROM `account` WHERE role = 0;"
     cursor.execute(sql)
@@ -49,6 +65,13 @@ def clear_cart(cid):
 def update_cart(food_id, quantity, cid):
     sql = "UPDATE `cart` SET `quantity`= %s WHERE cid = %s and food_id = %s"
     param = (quantity, cid, food_id,)
+    cursor.execute(sql, param)
+    conn.commit()
+    return
+
+def send_order(food_id, quantity, price, cid):
+    sql = "INSERT INTO `the_order`(`rid`, `food_id`, `cid`, `did`, `total_price`, `address`, `status`) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    param = (order_id, rating, feedback) 
     cursor.execute(sql, param)
     conn.commit()
     return
