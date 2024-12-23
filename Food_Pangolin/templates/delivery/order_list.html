@@ -24,11 +24,9 @@
         <tr>
             {% if loop.first %}
             <td rowspan="{{order_len}}">{{ order_num }}</td>
-            {% endif %}
-            <td>{{ order.r_name }}</td>
-            <td>{{ order.r_addr }}</td>
-            <td>{{ order.c_addr }}</td>
-            {% if loop.first %}
+            <td rowspan="{{order_len}}">{{ order.r_name }}</td>
+            <td rowspan="{{order_len}}">{{ order.r_addr }}</td>
+            <td rowspan="{{order_len}}">{{ order.c_addr }}</td>
             <td rowspan="{{order_len}}" style="text-align: center;">
                 <a href="/info?oid={{order.oid}}&time={{order.time}}">go</a>
             </td>

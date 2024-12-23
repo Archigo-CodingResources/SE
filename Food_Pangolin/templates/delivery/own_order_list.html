@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>已接訂單</h1>
-<table>
+<table border="1">
     <tr>
         <th>訂單編號</th>
         <th>餐廳名稱</th>
@@ -15,16 +15,20 @@
         <th>送餐地址</th>
         <th>詳細資訊</th>
     </tr>
-        {{data}}
+        {% for orders in data %}
+        {% set order_num = orders[-1] %}
+        {% set order_len = orders | length %}
+        {{orders}}
         <tr>
-            <td>{{ data.oid }}</td>
-            <td>{{ data.restaurant_name }}</td>
-            <td>{{ data.restaurant_addr }}</td>
-            <td>{{ data.client_addr }}</td>
-            <td>
+            <td>{{ order_num }}</td>
+            <td>{{ orders[0].r_name }}</td>
+            <td>{{ orders[0].r_addr }}</td>
+            <td>{{ orders[0].c_addr }}</td>
+            <td style="text-align: center;">
                 <a href="/info?cart_id=">go</a>  <!-- 我覺得the_order裡面要有cart_id，直接連購物車找資料？ -->
             </td>
         </tr>
+        {% endfor %}
 </table>
 
 <a href="/">返回訂單列表</a>
