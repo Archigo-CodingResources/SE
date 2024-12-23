@@ -18,6 +18,7 @@
     </tr>
     {% for orders in data[0].data %}
     {% for order in orders %}
+    {% if order.status != 2 %}
         <tr>
             <td>{{ order.oid }}</td>
             <td>{{ order.r_name }}</td>
@@ -29,8 +30,11 @@
             </td>
             {% endif %}
         </tr>
+    {% endif %}
     {% endfor %}
+    {% if orders[0].status != 2 %}
     <tr><td colspan="5"><hr></td></tr>
+    {% endif %}
     {% endfor %}
     
 </table>
