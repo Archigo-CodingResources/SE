@@ -227,6 +227,17 @@ def cart(): #購物車功能
 
     return render_template("client/cart.html", data=data)
 
+
+@app.route("/info", methods=["GET"])
+def order_info():
+    args = request.args
+    time = args['time']
+
+    order_info = delivery.get_order_info(time)
+
+    return render_template("/delivery/order_info.html", data=order_info)
+    
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if request.method == "GET":

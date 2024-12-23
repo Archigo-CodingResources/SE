@@ -26,7 +26,7 @@
             <td>{{ order.c_addr }}</td>
             {% if loop.last %}
             <td>
-                <a href="/info?cart_id={{order.oid}}">go</a>  <!-- 我覺得the_order裡面要有cart_id，直接連購物車找資料？ -->
+                <a href="/info?oid={{order.oid}}&time={{order.time}}">go</a>  <!-- 我覺得the_order裡面要有cart_id，直接連購物車找資料？ -->
             </td>
             {% endif %}
         </tr>

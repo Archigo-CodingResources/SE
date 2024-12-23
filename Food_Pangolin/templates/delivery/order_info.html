@@ -7,17 +7,24 @@
 </head>
 <body>
 <h1>餐點詳細資訊</h1>
+{{data}}
 <table>
-    <caption>訂單編號：{{ oid }}-餐點內容</caption>
+    <tr>
+        <td>訂單編號</td>
+        <td>商品名稱</td>
+        <td>商品數量</td>
+        <!-- 這裡看要不要加 單價*數量 的金額 -->
+    </tr>
     {% for rec in data %}
         <tr>
+            <td>{{ rec.oid }}</td>
             <td>{{ rec.name }}</td>
             <td>{{ rec.quantity }}</td>
             <!-- 這裡看要不要加 單價*數量 的金額 -->
         </tr>
     {% endfor %}
 </table>
-
+<br>
 <table>
     <caption>位置資訊</caption>
     <tr>
@@ -25,11 +32,13 @@
         <th>餐廳地址</th>
         <th>送餐地址</th>
     </tr>
+    {% for rec in data %}
     <tr>
-        <td>{{ rec.restaurant_name }}</td>
-        <td>{{ rec.restaurant_addr }}</td>
-        <td>{{ rec.client_addr }}</td>
+        <td>{{ rec.r_addr }}</td>
+        <td>{{ rec.r_name }}</td>
+        <td>{{ rec.c_addr }}</td>
     </tr>
+    {% endfor %}
 </table>
 
 <a href="/own_order?oid={{ oid }}" id="confirmOrderLink">確認接單</a> <!-- 我覺得the_order裡面要有cart_id，直接連購物車找資料？ -->
