@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, redirect
 from functools import wraps
+from datetime import datetime
 from modules import init, client, restaurant
 from importlib import reload
 
@@ -34,6 +35,7 @@ def homepage():
         cart = restaurant.get_order(int(session['id']))
 
         cart_data = restaurant.compose_order(cart)
+
         data = [
             {
                 "name":session['name'],
@@ -137,9 +139,12 @@ def menu():
     else:
         form = request.form
         order, cid = client.compose_order(form)
-    
+
+        user = init.get_account(session['loginID'])
+        now = datetime.now()
+   
         for key, value in order.items():
-            client.send_order(form['rid'], key, value['quantity'], value['price'], cid)
+            client.send_order(form['rid'], key, value['quantity'], cid, user[0]['address'], now)
 
         rid = form['rid']
 
@@ -210,13 +215,15 @@ def register():
     name = form['NAME']
     mail = form['MAIL']
     pwd = form['PWD']
+    address = form['ADDRESS']
     role = form['ROLE']
+    
     
     #檢查用戶存在
     user_from_mail = init.check_account(mail, pwd)
     if user_from_mail == []:
         # 如果没有找到，进行注册
-        init.register(name, mail, pwd, role)
+        init.register(name, mail, pwd, address, role)
         return redirect("/login.html")  #註冊結束跳轉至登錄界面
     
     return redirect("/register.html")  # 如果註冊失敗，跳回註冊界面

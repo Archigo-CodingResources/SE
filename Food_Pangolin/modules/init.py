@@ -28,6 +28,13 @@ def get_cursor():
     return _cursor, _conn
 
 
+def get_account(mail):
+    cursor, conn = get_cursor()
+    sql = "SELECT * FROM `account` WHERE email = %s;"
+    param = (mail, )
+    cursor.execute(sql, param)
+    return cursor.fetchall()
+
 def check_account(mail, pwd):
     cursor, conn = get_cursor()
     sql = "SELECT * FROM `account` WHERE email = %s and pwd = %s;"
@@ -35,10 +42,10 @@ def check_account(mail, pwd):
     cursor.execute(sql, param)
     return cursor.fetchall()
 
-def register(name, mail, pwd, role):
+def register(name, mail, pwd, address, role):
     cursor, conn = get_cursor()
-    sql = "INSERT INTO `account`(`name`, `email`, `pwd`, `role`) VALUES (%s, %s, %s, %s)"
-    param = (name, mail, pwd, role)
+    sql = "INSERT INTO `account`(`name`, `email`, `pwd`, `address`, `role`) VALUES (%s, %s, %s, %s, %s)"
+    param = (name, mail, pwd, address, role)
     cursor.execute(sql, param)
     conn.commit()
     return

@@ -15,14 +15,16 @@
         <th>數量</th>
         <th>價格</th>
         <th>點餐人</th>
+        <th>下單時間</th>
     </tr>
     {% for item in items %}
-        <tr>
-            <td>{{ item.name }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.price }}</td>
-            <td>{{ item.cid }}</td>
-        </tr>
+    <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.quantity}}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.cid }}</td>
+        <td>{{item.time}}</td>
+    </tr>
     {% endfor %}
     <tr>
         <td colspan="2">總金額：{{items[-1]}} $</td>

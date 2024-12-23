@@ -69,9 +69,9 @@ def update_cart(food_id, quantity, cid):
     conn.commit()
     return
 
-def send_order(food_id, quantity, price, cid):
-    sql = "INSERT INTO `the_order`(`rid`, `food_id`, `cid`, `did`, `total_price`, `address`, `status`) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-    param = (order_id, rating, feedback) 
+def send_order(rid, food_id, quantity, cid, address, now):
+    sql = "INSERT INTO `the_order`(`rid`, `food_id`, `cid`, `did`, `quantity`, `address`, `time`, `status`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    param = (rid, food_id, cid, None, quantity, address, now, 0, ) 
     cursor.execute(sql, param)
     conn.commit()
     return
