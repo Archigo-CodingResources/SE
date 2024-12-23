@@ -18,14 +18,13 @@
         {% for orders in data %}
         {% set order_num = orders[-1] %}
         {% set order_len = orders | length %}
-        {{orders}}
         <tr>
             <td>{{ order_num }}</td>
             <td>{{ orders[0].r_name }}</td>
             <td>{{ orders[0].r_addr }}</td>
             <td>{{ orders[0].c_addr }}</td>
             <td style="text-align: center;">
-                <a href="/info?cart_id=">go</a>  <!-- 我覺得the_order裡面要有cart_id，直接連購物車找資料？ -->
+                <a href="/info?oid={{orders[0].oid}}&time={{orders[0].time}}">go</a>  <!-- 我覺得the_order裡面要有cart_id，直接連購物車找資料？ -->
             </td>
         </tr>
         {% endfor %}

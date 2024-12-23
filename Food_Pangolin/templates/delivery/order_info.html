@@ -39,11 +39,13 @@
         <th>送餐地址</th>
     </tr>
     {% for rec in data %}
+    {% if loop.first %}
     <tr>
         <td>{{ rec.r_addr }}</td>
         <td>{{ rec.r_name }}</td>
         <td>{{ rec.c_addr }}</td>
     </tr>
+    {% endif %}
     {% endfor %}
 </table>
 
