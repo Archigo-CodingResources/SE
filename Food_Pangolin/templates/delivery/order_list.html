@@ -17,35 +17,37 @@
         <th>詳細資訊</th>
     </tr>
     {% for orders in data[0].data %}
+    {% set order_len = orders | length %}
     {% for order in orders %}
+    {% set order_num = orders[-1] %}
     {% if order.status != 2 %}
         <tr>
-            <td>{{ order.oid }}</td>
+            {% if loop.first %}
+            <td rowspan="{{order_len}}">{{ order_num }}</td>
+            {% endif %}
             <td>{{ order.r_name }}</td>
             <td>{{ order.r_addr }}</td>
             <td>{{ order.c_addr }}</td>
-            {% if loop.last %}
-            <td>
-                <a href="/info?oid={{order.oid}}&time={{order.time}}">go</a>  <!-- 我覺得the_order裡面要有cart_id，直接連購物車找資料？ -->
+            {% if loop.first %}
+            <td rowspan="{{order_len}}" style="text-align: center;">
+                <a href="/info?oid={{order.oid}}&time={{order.time}}">go</a>
             </td>
             {% endif %}
         </tr>
     {% endif %}
     {% endfor %}
+
     {% if orders[0].status != 2 %}
     <tr><td colspan="5"><hr></td></tr>
     {% endif %}
     {% endfor %}
-    
 </table>
 
 <a href="/own_order">查看已接訂單</a>
 
-<form action="/logout" method="POST">
-    <input type="submit" value="登出">
+<form action='/logout' method='POST'>
+    <input type='submit' value='登出'>
 </form>
 
 </body>
 </html>
-
-

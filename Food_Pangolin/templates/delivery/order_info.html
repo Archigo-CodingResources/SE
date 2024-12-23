@@ -7,22 +7,28 @@
 </head>
 <body>
 <h1>餐點詳細資訊</h1>
-{{data}}
 <table>
+    <caption>訂單資訊</caption>
     <tr>
-        <td>訂單編號</td>
         <td>商品名稱</td>
         <td>商品數量</td>
+        <td>商品價格</td>
         <!-- 這裡看要不要加 單價*數量 的金額 -->
     </tr>
+    {% set total = data[-1] %}
     {% for rec in data %}
         <tr>
-            <td>{{ rec.oid }}</td>
             <td>{{ rec.name }}</td>
             <td>{{ rec.quantity }}</td>
-            <!-- 這裡看要不要加 單價*數量 的金額 -->
+            <td>{{rec.price}}</td>
         </tr>
     {% endfor %}
+
+    <tr>
+        <td>應付價格</td>
+        <td>{{ total }}$</td>
+    </tr>
+    
 </table>
 <br>
 <table>
@@ -41,7 +47,7 @@
     {% endfor %}
 </table>
 
-<a href="/own_order?oid={{ oid }}" id="confirmOrderLink">確認接單</a> <!-- 我覺得the_order裡面要有cart_id，直接連購物車找資料？ -->
+<a href="/own_order?cid={{ data[0].cid }}&time={{data[0].time}}" id="confirmOrderLink">確認接單</a> <!-- 我覺得the_order裡面要有cart_id，直接連購物車找資料？ -->
 
 
 <a href="/own_order">查看已接訂單</a>

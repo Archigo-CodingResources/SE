@@ -234,8 +234,22 @@ def order_info():
     time = args['time']
 
     order_info = delivery.get_order_info(time)
+    order_data = delivery.merge_order_info(order_info)
 
-    return render_template("/delivery/order_info.html", data=order_info)
+    return render_template("/delivery/order_info.html", data=order_data)
+
+@app.route("/own_order", methods=["GET"])
+def own_order_list():
+    args = request.args
+
+    if args:
+        cid = args['cid']
+        time = args['time']
+        delivery.claim_order(session['id'], cid, time)
+
+    order = delivery.get_own_order(session['id'])
+    data = delivery.compose_order(order)
+    return render_template("/delivery/own_order_list.html", data=data)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
