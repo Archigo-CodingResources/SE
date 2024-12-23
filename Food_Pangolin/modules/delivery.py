@@ -54,9 +54,24 @@ def claim_order(did, cid, time):
     conn.commit()
     return
 
-def confirm_order(did, cid, time):
+def confirm_order(did, cid, time, total, rid):
     sql = "UPDATE `the_order` SET `status`= 2 WHERE did = %s and cid = %s and time = %s"
     param = (did, cid, time, )
+    cursor.execute(sql, param)
+    conn.commit()
+    
+    sql = "UPDATE `account` SET `summary` = `summary` + %s WHERE id = %s"
+    param = (total, cid, )
+    cursor.execute(sql, param)
+    conn.commit()
+
+    sql = "UPDATE `account` SET `summary` = `summary` + %s WHERE id = %s"
+    param = (total, rid, )
+    cursor.execute(sql, param)
+    conn.commit()
+
+    sql = "UPDATE `account` SET `summary` = `summary` + 1 WHERE id = %s"
+    param = (did, )
     cursor.execute(sql, param)
     conn.commit()
     return

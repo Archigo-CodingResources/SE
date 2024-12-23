@@ -50,5 +50,12 @@ def register(name, mail, pwd, address, role):
     conn.commit()
     return
 
+def get_summary(role):
+    cursor, conn = get_cursor()
+    sql = "SELECT * FROM `account` where role = %s"
+    param = (role, )
+    cursor.execute(sql, param)
+    return cursor.fetchall()
+
 
 __init__()

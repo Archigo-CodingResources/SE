@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>訂單系統</title>
+</head>
+<body>
+
+    <h1>平台總結</h1>
+
+    <!-- 按鈕：餐廳、客戶、外送員 -->
+    <form action="" method="get">
+        <button name="type" value="0">餐廳</button>
+        <button name="type" value="1">外送員</button>
+        <button name="type" value="2">客戶</button>
+    </form>
+
+    <!-- 顯示表格 -->
+    <table>
+        <thead>
+            <tr>
+                <th>名稱</th>
+                {% if data[0].role == 0 %}
+                <th>餐廳應收金額</th>
+                {% endif %}
+                {% if data[0].role == 1 %}
+                <th>外送接單數</th>
+                {% endif %}
+                {% if data[0].role == 2 %}
+                <th>客戶應付金額</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in data %}
+            <tr>
+                <td>{{user.name}}</td>
+                {% if data[0].role != 1 %}
+                <td>{{user.summary}} $</td>
+                {% else %}
+                <td>{{user.summary}}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="/logout" method="POST">
+        <input type="submit" value="登出">
+    </form>
+
+</body>
+</html>

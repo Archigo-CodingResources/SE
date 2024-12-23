@@ -53,7 +53,7 @@
 {% endif %}
 
 {% if data[0].data[0].status == 1 %}
-<a href="/confirm_order?cid={{ data[0].data[0].cid }}&time={{data[0].data[0].time}}" id="finishOrderLink">完成送單</a>
+<a href="/confirm_order?cid={{ data[0].data[0].cid }}&time={{data[0].data[0].time}}&total={{data[0].total}}&rid={{data[0].data[0].r_id}}" id="finishOrderLink">完成送單</a>
 {% endif %}
 
 

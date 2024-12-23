@@ -28,8 +28,6 @@ def login_required(f):
 @login_required
 def homepage():
     reload_db()
-    #0(用戶)，1(外送員),2(商家)
-    dest = '/restaurant/order.html' if session['role'] == 0 else "delivery/order_list.html" if session['role'] == 1 else 'client/restaurant.html'
 
     if session['role'] == 0:
         cart = restaurant.get_order(int(session['id']))
@@ -42,6 +40,8 @@ def homepage():
                 }
             ]
         
+        dest = '/restaurant/order.html'
+        
     elif session['role'] == 1:
         order = delivery.get_order()
         order_data = delivery.compose_order(order)
@@ -50,12 +50,27 @@ def homepage():
             "name":session['name'],
             "data":order_data
             }]
+        
+        dest = "delivery/order_list.html"
 
     elif session['role'] == 2:
         data = [{
             "name":session['name'],
             "data":client.get_restaurant()
             }]
+        
+        dest = 'client/restaurant.html'
+
+    elif session['role'] == -1:
+        dest = '/platform/summary.html'
+
+        args = request.args
+        data =[{}]
+
+        if args:   
+            role = args['type']
+
+            data = init.get_summary(role) 
         
     return render_template(dest, data=data)
 
@@ -230,6 +245,7 @@ def cart(): #購物車功能
 
 @app.route("/info", methods=["GET"])
 def order_info():
+    reload_db()
     args = request.args
     time = args['time']
 
@@ -249,6 +265,7 @@ def order_info():
 
 @app.route("/own_order", methods=["GET"])
 def own_order_list():
+    reload_db()
     args = request.args
 
     if args:
@@ -262,10 +279,15 @@ def own_order_list():
 
 @app.route("/confirm_order", methods=["GET"])
 def confirm_order():
+    reload_db()
     args = request.args
     cid = args['cid']
     time = args['time']
-    delivery.confirm_order(session['id'], cid, time)
+    total = args['total']
+    rid = args['rid']
+
+    print(args)
+    delivery.confirm_order(session['id'], cid, time, total, rid)
 
     return redirect("/own_order")
 
