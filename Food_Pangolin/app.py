@@ -105,6 +105,18 @@ def fix():
     dest = f'/menu?id={rid}'
     return redirect(dest)
 
+@app.route("/finish_order", methods=["GET"])
+@login_required
+def finish_order():
+    args = request.args
+    cid = args['cid']
+    time = args['time']
+    rid = session['id']
+
+    restaurant.update_order(cid, time, rid)
+
+    return redirect("/")
+
 
 @app.route("/menu", methods=['GET', 'POST']) 
 @login_required
@@ -145,6 +157,7 @@ def menu():
    
         for key, value in order.items():
             client.send_order(form['rid'], key, value['quantity'], cid, user[0]['address'], now)
+        client.clear_cart(session['id'])
 
         rid = form['rid']
 

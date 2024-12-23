@@ -7,13 +7,10 @@ def compose_order(cart_data):
 
     # 按 (cid, time) 分组
     for item in cart_data:
-        print(item)
         key = (item['cid'], item['time'])  # 使用 (cid, time) 作为分组键
         if key not in grouped_by_cid_time:
             grouped_by_cid_time[key] = []
         grouped_by_cid_time[key].append(item)
-    
-    print(grouped_by_cid_time)
 
     # 将分组结果转换为列表
     grouped_by_cid_time = list(grouped_by_cid_time.values())
@@ -46,6 +43,13 @@ def get_order(rid):
     param = (rid, )
     cursor.execute(sql, param)
     return cursor.fetchall()
+
+def update_order(cid, time, rid):
+    sql = "UPDATE `the_order` SET `status`= 1 WHERE cid = %s and time = %s and rid = %s"
+    param = (cid, time, rid)
+    cursor.execute(sql, param)
+    conn.commit()
+    return
 
 def add_item(name, description, price, rid):
     sql = "INSERT INTO food (name, description, price, rid) VALUES (%s, %s, %s, %s);"

@@ -8,7 +8,8 @@
 <body>
     <p>歡迎，{{data[0].name}}！</p>
     
-{% for items in data[0].data %}
+
+
 <table>
     <tr>
         <th>商品</th>
@@ -17,21 +18,31 @@
         <th>點餐人</th>
         <th>下單時間</th>
     </tr>
+    {% for items in data[0].data %}
+    {% set total = items[-1] %}
+    {% if items[0].status == 0 %}
+    <tr><td colspan="5"><hr></td></tr>
+    <tr>
+        <td colspan="2">總金額：{{ total }} $</td>
+        <td>
+            <a href="/finish_order?cid={{ items[0].cid }}&time={{ items[0].time }}">製作完成</a>
+        </td>
+    </tr>
+    {% endif %}
     {% for item in items %}
-    <tr>
-        <td>{{ item.name }}</td>
-        <td>{{ item.quantity}}</td>
-        <td>{{ item.price }}</td>
-        <td>{{ item.cid }}</td>
-        <td>{{item.time}}</td>
-    </tr>
+        {% if item.status == 0 %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.cid }}</td>
+            <td>{{ item.time }}</td>
+        </tr>
+        {% endif %}
     {% endfor %}
-    <tr>
-        <td colspan="2">總金額：{{items[-1]}} $</td>
-    </tr>
+    {% endfor %}
     
 </table>
-{% endfor %}
 
 <a href="/menu?id={{ session['id'] }}">view menu</a>
 
