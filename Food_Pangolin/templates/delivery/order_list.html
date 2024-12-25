@@ -19,7 +19,7 @@
     {% for orders in data[0].data %}
     {% for order in orders %}
     {% set order_num = orders[-1] %}
-    {% if order.status == 0 %}
+    {% if not order.did %}
         <tr>
             {% if loop.first %}
             <td>{{ order_num }}</td>
@@ -27,14 +27,14 @@
             <td>{{ order.r_addr }}</td>
             <td>{{ order.c_addr }}</td>
             <td style="text-align: center;">
-                <a href="/info?oid={{order.oid}}&time={{order.time}}">go</a>
+                <a href="/info?oid={{order_num}}">go</a>
             </td>
             {% endif %}
         </tr>
     {% endif %}
     {% endfor %}
 
-    {% if orders[0].status == 0%}
+    {% if not orders[0].did %}
     <tr><td colspan="5"><hr></td></tr>
     {% endif %}
     {% endfor %}

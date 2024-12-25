@@ -45,7 +45,7 @@ def get_order(rid):
     return cursor.fetchall()
 
 def update_order(cid, time, rid):
-    sql = "UPDATE `the_order` SET `status`= 1 WHERE cid = %s and time = %s and rid = %s"
+    sql = "UPDATE `the_order` SET `status`= 2 WHERE cid = %s and time = %s and rid = %s"
     param = (cid, time, rid)
     cursor.execute(sql, param)
     conn.commit()

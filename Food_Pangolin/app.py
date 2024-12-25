@@ -247,19 +247,37 @@ def cart(): #購物車功能
 def order_info():
     reload_db()
     args = request.args
-    time = args['time']
+    data = [{}]
+    print(args)
 
-    order_info = delivery.get_order_info(time)
-    order_data, total = delivery.merge_order_info(order_info)
+    if 'oid' in args and 'did' not in args:
+        oid = int(args['oid'])
 
-    data = [
-        {
-        "total": total,
-        "data": order_data
-    }
-    ]
+        order_info = delivery.get_order_info()
+        order_data = delivery.compose_order(order_info)
+        order_list, total = delivery.merge_order_info(order_data[oid - 1])
+        
+        data = [
+            {
+            "total": total,
+            "data": order_list
+        }
+        ]
 
-    
+    if 'did' in args and 'oid' in args:
+        oid = int(args['oid'])
+        did = int(args['did'])
+
+        order_info = delivery.get_own_order_info(did)
+        order_data = delivery.compose_order(order_info)
+        order_list, total = delivery.merge_order_info(order_data[oid - 1])
+        
+        data = [
+            {
+            "total": total,
+            "data": order_data[oid - 1]
+        }
+        ]
 
     return render_template("/delivery/order_info.html", data=data)
 
@@ -275,6 +293,7 @@ def own_order_list():
 
     order = delivery.get_own_order(session['id'])
     data = delivery.compose_order(order)
+
     return render_template("/delivery/own_order_list.html", data=data)
 
 @app.route("/confirm_order", methods=["GET"])
@@ -286,7 +305,6 @@ def confirm_order():
     total = args['total']
     rid = args['rid']
 
-    print(args)
     delivery.confirm_order(session['id'], cid, time, total, rid)
 
     return redirect("/own_order")
