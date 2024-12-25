@@ -248,7 +248,6 @@ def order_info():
     reload_db()
     args = request.args
     data = [{}]
-    print(args)
 
     if 'oid' in args and 'did' not in args:
         oid = int(args['oid'])
@@ -280,9 +279,12 @@ def own_order_list():
     args = request.args
 
     if args:
-        cid = args['cid']
-        time = args['time']
-        delivery.claim_order(session['id'], cid, time)
+        oid = int(args['oid'])
+        order_info = delivery.get_order_info()
+        order_data = delivery.compose_order(order_info)
+        
+        for inner_order in order_data[oid - 1][:-1]:
+            delivery.claim_order(session['id'], inner_order['cid'], inner_order['time'])
 
     order = delivery.get_own_order(session['id'])
     data = delivery.compose_order(order)

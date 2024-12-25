@@ -7,9 +7,6 @@
 </head>
 <body>
     <p>歡迎，{{data[0].name}}！</p>
-    
-
-
 <table>
     <tr>
         <th>商品</th>
@@ -20,7 +17,7 @@
     </tr>
     {% for items in data[0].data %}
     {% set total = items[-1] %}
-    {% if items[0].status == 0 %}
+    {% if items[0].status < 2%}
     <tr><td colspan="5"><hr></td></tr>
     <tr>
         <td colspan="2">總金額：{{ total }} $</td>
@@ -30,7 +27,8 @@
     </tr>
     {% endif %}
     {% for item in items %}
-        {% if item.status == 0 %}
+        {% if not loop.last %}
+        {% if item.status < 2 %}
         <tr>
             <td>{{ item.name }}</td>
             <td>{{ item.quantity }}</td>
@@ -38,6 +36,7 @@
             <td>{{ item.cid }}</td>
             <td>{{ item.time }}</td>
         </tr>
+        {% endif %}
         {% endif %}
     {% endfor %}
     {% endfor %}
