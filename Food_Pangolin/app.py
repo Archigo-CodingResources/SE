@@ -369,4 +369,4 @@ def show_comment():
     form = request.args
     rid = form['id']
     data = restaurant.get_restaurant_comment(rid)
-    return render_template("/comment.html", data=data)
+    return render_template("/client/comment.html", data=data)

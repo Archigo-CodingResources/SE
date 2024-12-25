@@ -11,7 +11,6 @@
         <th>評分</th>
         <th>評論</th>
     </tr>
-    <!-- 顯示餐廳列表 -->
     {% for rec in data %}
     <tr>
         <td>{{ rec.rating }}</td>
@@ -19,5 +18,13 @@
     </tr>
     {% endfor %}
 </table>
+
+<button class="back-button" onclick="history.back()">返回上一頁</button>
+
+<form action="/logout">
+    <input type="submit" value="登出" class="return">
+</form>
+
+
 </body>
 </html>
