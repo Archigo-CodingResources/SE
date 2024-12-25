@@ -254,6 +254,14 @@ def order_info():
         oid = int(args['oid'])
 
         order_info = delivery.get_order_info()
+        
+    elif 'did' in args and 'oid' in args:
+        oid = int(args['oid'])
+        did = int(args['did'])
+
+        order_info = delivery.get_own_order_info(did)
+    
+    if 'oid' in args:
         order_data = delivery.compose_order(order_info)
         order_list, total = delivery.merge_order_info(order_data[oid - 1])
         
@@ -261,21 +269,6 @@ def order_info():
             {
             "total": total,
             "data": order_list
-        }
-        ]
-
-    if 'did' in args and 'oid' in args:
-        oid = int(args['oid'])
-        did = int(args['did'])
-
-        order_info = delivery.get_own_order_info(did)
-        order_data = delivery.compose_order(order_info)
-        order_list, total = delivery.merge_order_info(order_data[oid - 1])
-        
-        data = [
-            {
-            "total": total,
-            "data": order_data[oid - 1]
         }
         ]
 
