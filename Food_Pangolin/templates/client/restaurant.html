@@ -14,6 +14,7 @@
         <tr>
             <th>餐廳名稱</th>
             <th>查看菜單</th>
+            <th>查看評論</th>
         </tr>
         <!-- 顯示餐廳列表 -->
         {% for rec in data[0].data %}
@@ -21,6 +22,9 @@
             <td>{{ rec.name }}</td>
             <td>
                 <a href="/menu?id={{ rec.id }}">Go</a>
+            </td>
+            <td>
+                <a href="/show_comment?id={{ rec.id }}">Go</a>
             </td>
         </tr>
         {% endfor %}

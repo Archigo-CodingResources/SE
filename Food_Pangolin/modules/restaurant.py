@@ -70,3 +70,11 @@ def fix_item(name, description, price, food_id):
     cursor.execute(sql, param)
     conn.commit()
     return
+
+def get_restaurant_comment(rid):
+    sql = "SELECT * FROM comment where rid = %s"
+    param = (rid,)
+    cursor.execute(sql, param)
+    return cursor.fetchall()
+    
+
