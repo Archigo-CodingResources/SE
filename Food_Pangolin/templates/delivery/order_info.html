@@ -59,8 +59,8 @@
     {% endfor %}
 </table>
 
-{% if data[0].data[0].status == 0 %}
-<a href="/own_order?cid={{ data[0].cid }}&time={{data[0].time}}" id="confirmOrderLink">確認接單</a>
+{% if data[0].data[0].status == 0%}
+<a href="/own_order?oid={{ data[0].data[-1] }}" id="confirmOrderLink">確認接單</a>
 {% endif %}
 
 {% if data[0].data[0].status == 2 %}
