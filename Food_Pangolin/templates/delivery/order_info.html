@@ -32,7 +32,7 @@
         <td>應付價格</td>
 		<td></td>
         <td>{{ data[0].total }} $</td>
-        {% if data[0].status == 2 %}
+        {% if data[0].data[0].status == 2 %}
         <td>可取餐</td>
         {% else %}
         <td>未完成</td>
@@ -59,7 +59,13 @@
     {% endfor %}
 </table>
 
+{% if data[0].data[0].status == 0 %}
+<a href="/own_order?cid={{ data[0].cid }}&time={{data[0].time}}" id="confirmOrderLink">確認接單</a>
+{% endif %}
 
+{% if data[0].data[0].status == 2 %}
+<a href="/confirm_order?cid={{ data[0].data[0].cid }}&time={{data[0].data[0].time}}&total={{data[0].total}}&rid={{data[0].data[0].r_id}}" id="finishOrderLink">完成送單</a>
+{% endif %}
 
 
 <a href="/own_order">查看已接訂單</a>

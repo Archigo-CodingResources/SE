@@ -248,7 +248,6 @@ def order_info():
     reload_db()
     args = request.args
     data = [{}]
-    print(args)
 
     if 'oid' in args and 'did' not in args:
         oid = int(args['oid'])

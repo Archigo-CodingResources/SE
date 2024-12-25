@@ -50,7 +50,7 @@ def get_own_order_info(did):
     return cursor.fetchall()
 
 def get_own_order(id):
-    sql = "SELECT the_order.oid, the_order.cid, the_order.time, rid as r_id, name as r_name, account.address as r_addr, the_order.address as c_addr, the_order.status from the_order inner join account on the_order.rid = account.id where the_order.status > 0 and did = %s"
+    sql = "SELECT the_order.oid, the_order.cid, the_order.time, rid as r_id, name as r_name, account.address as r_addr, the_order.address as c_addr, the_order.status from the_order inner join account on the_order.rid = account.id where the_order.status < 3 and did = %s"
     param = (id, )
     cursor.execute(sql, param)
     return cursor.fetchall()
