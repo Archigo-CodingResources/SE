@@ -358,10 +358,9 @@ def logout():
 
 @app.route("/submit_feedback", methods=["POST"])
 def submit_feedback_form():
-    order_id = request.form['order_id']
-    rating = int(request.form['rating'])
+    rating = request.form['rating']
     feedback = request.form['feedback']
-    client.submit_feedback(order_id, rating, feedback)
+    client.submit_feedback(rating, feedback)
     return redirect("/")
 
 
