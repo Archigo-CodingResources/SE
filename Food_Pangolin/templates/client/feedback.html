@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>FoodPangolin回饋表單</title>
 </head>
-
 <body>
     <h1>外送平台回饋表單</h1>
     <form action="/submit_feedback" method="POST">
@@ -24,6 +23,7 @@
         <textarea id="feedback" name="feedback" rows="4" required></textarea>
         <br><br>
 
+        <input type="hidden" name="rid" value="{{data[0].rid}}">
         <button type="submit">提交</button>
     </form>
 

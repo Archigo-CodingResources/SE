@@ -76,9 +76,15 @@ def send_order(rid, food_id, quantity, cid, address, now):
     conn.commit()
     return
 
-def submit_feedback(rating, feedback):   
-    sql = "INSERT INTO `feedback`(`rating`, `feedback`) VALUES (%s, %s)"
-    param = (order_id, rating, feedback) 
+def get_comment(rid):
+    sql = "SELECT * FROM `comment` WHERE rid = %s;"
+    param = (rid, )
+    cursor.execute(sql, param)
+    return cursor.fetchall()
+
+def submit_feedback(rating, feedback, rid):   
+    sql = "INSERT INTO `comment`(`rating`, `content`, `rid`) VALUES (%s, %s, %s)"
+    param = (rating, feedback, rid,) 
     cursor.execute(sql, param)
     conn.commit()
     return
