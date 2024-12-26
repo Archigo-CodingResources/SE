@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, flash
 from functools import wraps
 from controllers import general,restaurant,client,delivery
 
@@ -12,11 +12,7 @@ def login_required(f):
     def wrapper(*args, **kwargs):
         loginID = session.get('loginID')
         if not loginID:
-<<<<<<< HEAD
-            return render_template('/login.html')  # 如果沒登錄跳轉至登錄界面
-=======
             return redirect('/login')  # 如果沒登錄跳轉至登錄界面
->>>>>>> f70a569287772a4ff073d0446e150f168cb048d1
         return f(*args, **kwargs)
     return wrapper
 
@@ -132,19 +128,22 @@ def show_comment():
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if request.method == "POST":
-        status = general.register(request)
+        status, wrong = general.register(request)
         if status:
-            return redirect("/login.html")
-    return redirect("/register.html")  # 如果註冊失敗，跳回註冊界面
+            return render_template("/login.html")
+        flash(wrong)
+    return render_template("/register.html")  # 如果註冊失敗，跳回註冊界面
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == "GET":
-        return redirect("/login.html")
+        return render_template("/login.html")
     
-    status = general.login(request)
+    status, wrong = general.login(request)
+    
     if not status:
-        return redirect("/login.html")
+        flash(wrong)
+        return render_template("/login.html")
     
     return redirect("/")
 
