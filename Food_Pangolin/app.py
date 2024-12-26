@@ -22,7 +22,7 @@ def homepage():
     if session['role'] >= 0:
         dest, data = general.homepage(session)
     else:
-        dest, data = general.homepage_admin(request, session)
+        dest, data = general.homepage_admin(request)
     return render_template(dest, data=data)
 
 
