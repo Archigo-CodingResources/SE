@@ -14,7 +14,14 @@
     </tr>
     {% for rec in data %}
     <tr>
-        <td>{{ rec.rating }}</td>
+        <td>
+        {% for i in range(0, rec.rating) %}
+        ★
+        {% endfor %}
+        {% for i in range(rec.rating, 5) %}
+        ☆
+        {% endfor %}
+        </td>
         <td>{{ rec.content }}</td>
     </tr>
     {% endfor %}

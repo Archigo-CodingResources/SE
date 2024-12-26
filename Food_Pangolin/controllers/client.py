@@ -21,7 +21,7 @@ def menu(request, session):
         form = request.form
         order, cid = client.compose_order(form)
 
-        user = init.get_account(session['loginID'])
+        user = init.check_account(session['loginID'])
         now = datetime.now()
    
         for key, value in order.items():

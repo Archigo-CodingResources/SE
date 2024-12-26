@@ -28,16 +28,9 @@ def get_cursor():
     return _cursor, _conn
 
 
-def get_account(mail):
-    cursor, conn = get_cursor()
-    sql = "SELECT * FROM `account` WHERE email = %s;"
-    param = (mail, )
-    cursor.execute(sql, param)
-    return cursor.fetchall()
-
 def check_account(mail, pwd):
     cursor, conn = get_cursor()
-    sql = "SELECT * FROM `account` WHERE email = %s and pwd = %s;"
+    sql = "SELECT * FROM `account` WHERE email = %s"
     param = (mail, pwd, )
     cursor.execute(sql, param)
     return cursor.fetchall()
