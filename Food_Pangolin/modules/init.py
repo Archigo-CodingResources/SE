@@ -28,10 +28,10 @@ def get_cursor():
     return _cursor, _conn
 
 
-def check_account(mail, pwd):
+def check_account(mail):
     cursor, conn = get_cursor()
     sql = "SELECT * FROM `account` WHERE email = %s"
-    param = (mail, pwd, )
+    param = (mail, )
     cursor.execute(sql, param)
     return cursor.fetchall()
 

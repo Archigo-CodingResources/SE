@@ -18,7 +18,7 @@ def register(request):
     role = form['ROLE']
 
     #檢查用戶存在
-    user_from_mail = init.check_account(mail, pwd)
+    user_from_mail = init.check_account(mail)
     if user_from_mail == []:
         # 如果没有找到，进行注册
         init.register(name, mail, pwd, address, role)
@@ -33,7 +33,7 @@ def login(request):
     pwd = form['PWD']
     
     #檢查用戶憑據
-    user_from_mail = init.check_account(mail, pwd)
+    user_from_mail = init.check_account(mail)
 
     if user_from_mail == []:
         return False, "輸入錯誤，請重新輸入"
