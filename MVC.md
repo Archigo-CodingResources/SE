@@ -16,13 +16,15 @@ Food_Pangolin
 │   │   ├── comment.html
 │   │   └── feedback.html
 │   ├── restaurant
+│   │   ├── addfoodUI.html
+│   │   ├── fixfoodUI.html
 │   │   ├── menu.html
 │   │   └── order.html
 │   └── delivery
 │   │   ├── order_list.html
 │   │   ├── own_order_list.html
 │   │   └── order_info.html
-│   └── delivery
+│   └── platform
 │   │   └── summary.html
 ├── controllers
 │   ├── client.py
