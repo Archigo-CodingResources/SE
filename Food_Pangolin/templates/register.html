@@ -10,7 +10,17 @@
     <div class="header-container">
         <h1 class="header">Welcome to Join Us!</h1>
     </div>
-
+    <div class="wrong_message">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
     <section class="login">
         <p class="whatToDo">Create your account</p>
         <form method="post" action="/register">
