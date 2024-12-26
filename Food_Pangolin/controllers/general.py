@@ -2,7 +2,7 @@ from modules import init, client, restaurant, delivery
 from importlib import reload
 from app import session
 
-def reload_db():
+def reload_db(): #重新加載DB
     reload(init)
     reload(restaurant)
     reload(client)
@@ -48,7 +48,7 @@ def login(request):
 
 def homepage(session):
     reload_db()
-    if session['role'] == 0:
+    if session['role'] == 0: #餐廳
         cart = restaurant.get_order(int(session['id']))
         cart_data = restaurant.compose_order(cart)
 
@@ -61,7 +61,7 @@ def homepage(session):
         
         dest = '/restaurant/order.html'
         
-    elif session['role'] == 1:
+    elif session['role'] == 1: #外送員
         order = delivery.get_order()
         order_data = delivery.compose_order(order)
 
@@ -72,7 +72,7 @@ def homepage(session):
         
         dest = "delivery/order_list.html"
 
-    elif session['role'] == 2:
+    elif session['role'] == 2: #客戶
         data = [{
             "name":session['name'],
             "data":client.get_restaurant()
@@ -84,7 +84,7 @@ def homepage(session):
 
 def homepage_admin(request):
     reload_db()
-    dest = '/platform/summary.html'
+    dest = '/platform/summary.html' #預設頁面
 
     args = request.args
     data =[{}]
