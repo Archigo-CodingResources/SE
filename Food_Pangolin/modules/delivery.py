@@ -39,12 +39,12 @@ def get_order():
     return cursor.fetchall()
 
 def get_order_info():
-    sql = "SELECT the_order.oid, the_order.cid, the_order.time, food.name, food.price, the_order.quantity, the_order.quantity * food.price as total, the_order.rid as r_id, account.name as r_name, account.address as r_addr, the_order.address as c_addr, the_order.status from the_order inner join account on the_order.rid = account.id inner join food on food.food_id = the_order.food_id where the_order.did is NULL"
+    sql = "SELECT the_order.oid, the_order.cid, the_order.did, the_order.time, food.name, food.price, the_order.quantity, the_order.quantity * food.price as total, the_order.rid as r_id, account.name as r_name, account.address as r_addr, the_order.address as c_addr, the_order.status from the_order inner join account on the_order.rid = account.id inner join food on food.food_id = the_order.food_id where the_order.did is NULL"
     cursor.execute(sql)
     return cursor.fetchall()
 
 def get_own_order_info(did):
-    sql = "SELECT the_order.oid, the_order.cid, the_order.time, food.name, food.price, the_order.quantity, the_order.quantity * food.price as total, the_order.rid as r_id, account.name as r_name, account.address as r_addr, the_order.address as c_addr, the_order.status from the_order inner join account on the_order.rid = account.id inner join food on food.food_id = the_order.food_id WHERE the_order.did = %s and the_order.status < 3"
+    sql = "SELECT the_order.oid, the_order.cid, the_order.did, the_order.time, food.name, food.price, the_order.quantity, the_order.quantity * food.price as total, the_order.rid as r_id, account.name as r_name, account.address as r_addr, the_order.address as c_addr, the_order.status from the_order inner join account on the_order.rid = account.id inner join food on food.food_id = the_order.food_id WHERE the_order.did = %s and the_order.status < 3"
     param = (did, )
     cursor.execute(sql, param)
     return cursor.fetchall()
@@ -56,7 +56,7 @@ def get_own_order(id):
     return cursor.fetchall()
 
 def claim_order(did, cid, time):
-    sql = "UPDATE `the_order` SET `did`= %s, `status`= 1 WHERE cid = %s and time = %s"
+    sql = "UPDATE `the_order` SET `did`= %s WHERE cid = %s and time = %s"
     param = (did, cid, time, )
     cursor.execute(sql, param)
     conn.commit()

@@ -86,6 +86,7 @@ def submit_feedback(request):
     rating = request.form['rating']
     feedback = request.form['feedback']
     rid = request.form['rid']
+    print(request.form)
     client.submit_feedback(rating, feedback, rid)
 
 def show_comment(request):
