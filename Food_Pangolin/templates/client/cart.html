@@ -4,10 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>購物車</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+        }
+
+        p {
+            text-align: center;
+            color: #777;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #ff7043;
+            color: white;
+        }
+
+        button {
+            background-color: #ff7043;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff5733;
+        }
+
+        input[type="submit"] {
+            background-color: #29b6f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #039be5;
+        }
+
+        a {
+            display: inline-block;
+            background-color: #ff7043;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        a:hover {
+            background-color: #ff5733;
+        }
+
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        div form, div a {
+            display: inline-block;
+        }
+
+    </style>
 </head>
 <body>
     <h1>購物車</h1>
     <p>歡迎，{{ data[0].name }}！</p>
+    <div>
+        <form action="/menu" method="POST">
+            {% for item in data[0].data %}
+            <input type="hidden" name="food_id" value="{{item.food_id}}">
+            <input type="hidden" name="quantity" value="{{item.quantity}}">
+            <input type="hidden" name="price" value="{{item.price}}">
+            {% endfor %}
+            <input type="hidden" name="cid" value="{{data[0].cid}}">
+            <input type="hidden" name="rid" value="{{data[0].rid}}">
+            <input type="submit" value="送出">
+        </form>
+        <a href="/menu?id={{data[0].rid}}">繼續購物</a>
+        <form action="/" method="POST">
+            <input type="submit" value="返回列表">
+        </form>
+        <form action="/cart" method="POST">
+            <input type="hidden" name="rid" value="{{data[0].rid}}">
+            <input type="hidden" name="action" value="clear">
+            <input type="submit" value="清空購物車">
+        </form>
+        <form action="/logout" method="POST">
+            <input type="submit" value="登出">
+        </form>
+    </div>
     <table>
         <tr>
             <th>餐點名稱</th>
@@ -38,30 +155,6 @@
         {% endfor %}
         {% endif %}
     </table>
-    <div>
-        <form action="/menu" method="POST">
-            {% for item in data[0].data %}
-            <input type="hidden" name="food_id" value="{{item.food_id}}">
-            <input type="hidden" name="quantity" value="{{item.quantity}}">
-            <input type="hidden" name="price" value="{{item.price}}">
-            {% endfor %}
-            <input type="hidden" name="cid" value="{{data[0].cid}}">
-            <input type="hidden" name="rid" value="{{data[0].rid}}">
-            <input type="submit" value="送出">
-        </form>
-        <form action="/logout" method="POST">
-            <input type="submit" value="登出">
-        </form>
-        <a href="/menu?id={{data[0].rid}}">繼續購物</a>
-        <form action="/cart" method="POST">
-            <input type="hidden" name="rid" value="{{data[0].rid}}">
-            <input type="hidden" name="action" value="clear">
-            <input type="submit" value="清空購物車">
-        </form>
-        <form action="/" method="POST">
-            <input type="submit" value="返回列表">
-        </form>
-    </div>
 
     {% if data[0].data %}
     {% for item in data[0].data %}
