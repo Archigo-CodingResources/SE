@@ -12,7 +12,11 @@ def login_required(f):
     def wrapper(*args, **kwargs):
         loginID = session.get('loginID')
         if not loginID:
+<<<<<<< HEAD
             return render_template('/login.html')  # 如果沒登錄跳轉至登錄界面
+=======
+            return redirect('/login')  # 如果沒登錄跳轉至登錄界面
+>>>>>>> f70a569287772a4ff073d0446e150f168cb048d1
         return f(*args, **kwargs)
     return wrapper
 
