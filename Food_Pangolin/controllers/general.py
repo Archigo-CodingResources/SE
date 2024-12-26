@@ -22,9 +22,9 @@ def register(request):
     if user_from_mail == []:
         # 如果没有找到，进行注册
         init.register(name, mail, pwd, address, role)
-        return True  #註冊結束跳轉至登錄界面
+        return True, None  #註冊結束跳轉至登錄界面
     
-    return False
+    return False, "此信箱已被註冊，請重新輸入"
 
 def login(request):
     #處理POST请求（提交登录表单）
@@ -36,7 +36,7 @@ def login(request):
     user_from_mail = init.check_account(mail, pwd)
 
     if user_from_mail == []:
-        return False, None
+        return False, "輸入錯誤，請重新輸入"
     
    #登錄成功後，保存資料到session
     session['loginID'] = mail
