@@ -3,6 +3,7 @@ from controllers.general import reload_db
 from datetime import datetime
 
 def menu(request, session):
+    reload_db()
     if request.method == "GET":
         form = request.args
         rid = form['id']
@@ -41,6 +42,7 @@ def menu(request, session):
     return dest, data
 
 def cart(request, session):
+    reload_db()
     if request.method == "POST":
         form = request.form
         rid = form['rid']
@@ -87,6 +89,7 @@ def submit_feedback(request):
     client.submit_feedback(rating, feedback, rid)
 
 def show_comment(request):
+    reload_db()
     form = request.args
     rid = form['id']
     data = client.get_comment(rid)

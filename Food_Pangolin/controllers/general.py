@@ -47,6 +47,7 @@ def login(request):
 
 
 def homepage(session):
+    reload_db()
     if session['role'] == 0:
         cart = restaurant.get_order(int(session['id']))
         cart_data = restaurant.compose_order(cart)
@@ -82,6 +83,7 @@ def homepage(session):
     return dest, data
 
 def homepage_admin(request):
+    reload_db()
     dest = '/platform/summary.html'
 
     args = request.args

@@ -5,6 +5,7 @@ from controllers.general import reload_db
 
 
 def menu(request, session):
+    reload_db()
     if request.method == "GET":
         form = request.args
         rid = form['id']
@@ -23,6 +24,7 @@ def menu(request, session):
     return dest, data
 
 def add_foodUI(request):
+    reload_db()
     form = request.args
     rid = form['id']
     dest = '/restaurant/addfoodUI.html'
@@ -30,6 +32,7 @@ def add_foodUI(request):
     return dest, rid
 
 def add_food(request):
+    reload_db()
     form = request.form
     rid = form['RID']
     name = form['NAME']
@@ -41,6 +44,7 @@ def add_food(request):
     return dest
 
 def fix_foodUI(request):
+    reload_db()
     form = request.args
     rid = form['id']
     food_id = form['food_id']
@@ -50,6 +54,7 @@ def fix_foodUI(request):
     return dest, data, rid, food_id
 
 def fix_food(request):
+    reload_db()
     form = request.form
     rid = form['RID']
     food_id = form['FOOD_ID']

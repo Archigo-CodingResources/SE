@@ -2,6 +2,7 @@ from modules import delivery
 from controllers.general import reload_db
 
 def order_info(request):
+    reload_db()
     args = request.args
     data = [{}]
 
@@ -30,6 +31,7 @@ def order_info(request):
     return data
 
 def own_order(request, session):
+    reload_db()
     args = request.args
 
     if args:
