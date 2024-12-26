@@ -3,6 +3,7 @@ from modules import init
 cursor, conn = init.get_cursor()
 
 def compose_order(form):
+    #從表單提取食物的資料
     food_id = form.getlist("food_id")
     quantity = form.getlist("quantity")
     price = form.getlist("price")
@@ -10,6 +11,7 @@ def compose_order(form):
 
     data = {}
 
+    #將該資料存入data
     for i in range(min(len(food_id), len(quantity), len(price))):
         data[food_id[i]] = {
             "quantity": int(quantity[i]),
@@ -19,23 +21,26 @@ def compose_order(form):
     return data, cid
 
 def get_restaurant():
-    sql = "SELECT * FROM `account` WHERE role = 0;"
+    sql = "SELECT * FROM `account` WHERE role = 0;" 
     cursor.execute(sql)
     return cursor.fetchall()
 
 def get_menu(rid):
+    #透過rid傳回參數對應menu資料
     sql = "SELECT * FROM `food` WHERE rid = %s;"
     param = (rid, )
     cursor.execute(sql, param)
     return cursor.fetchall()
 
 def get_cart(cid):
+     #透過rid傳回參數對應cart資料
     sql = "SELECT * FROM `cart` inner join `food` on food.food_id = cart.food_id where cid = %s"
     param = (cid, )
     cursor.execute(sql, param)
     return cursor.fetchall()
 
 def get_item(cid, food_id):
+    #透過rid傳回參數對應item資料
     sql = "SELECT * FROM `cart` WHERE cid = %s and food_id = %s;"
     param = (cid, food_id, )
     cursor.execute(sql, param)
@@ -71,7 +76,7 @@ def update_cart(food_id, quantity, cid):
 
 def send_order(rid, food_id, quantity, cid, address, now):
     sql = "INSERT INTO `the_order`(`rid`, `food_id`, `cid`, `did`, `quantity`, `address`, `time`, `status`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-    param = (rid, food_id, cid, None, quantity, address, now, 0, ) 
+    param = (rid, food_id, cid, None, quantity, address, now, 0, ) #訂單狀態默認為0
     cursor.execute(sql, param)
     conn.commit()
     return
