@@ -81,7 +81,7 @@ def homepage(session):
 
     return dest, data
 
-def homepage_admin(request, session):
+def homepage_admin(request):
     dest = '/platform/summary.html'
 
     args = request.args
@@ -92,52 +92,3 @@ def homepage_admin(request, session):
         data = init.get_summary(role)
 
     return dest, data
-
-def menu(request):
-    if request.method == "GET":
-        form = request.args
-        rid = form['id']
-        if "action" in form and form['action'] == "remove":
-            restaurant.remove_item(rid, form['food_id'])
-
-        if session['role'] == 0:
-            data = [
-                {
-                    "name":session['name'],
-                    "data":restaurant.get_menu(int(rid)),
-                    "rid":rid
-                }
-            ]
-            dest = '/restaurant/menu.html'
-
-        if session['role'] == 2:
-            data = [
-                {
-                    "name":session['name'],
-                    "rid":rid,
-                    "data":client.get_menu(int(rid)),
-                }
-            ]
-            dest = 'client/menu.html'
-
-    else:
-        form = request.form
-        order, cid = client.compose_order(form)
-
-        user = init.get_account(session['loginID'])
-        now = datetime.now()
-   
-        for key, value in order.items():
-            client.send_order(form['rid'], key, value['quantity'], cid, user[0]['address'], now)
-        client.clear_cart(session['id'])
-
-        rid = form['rid']
-
-        dest = 'client/menu.html'
-        data = [
-                {
-                    "name":session['name'],
-                    "rid":rid,
-                    "data":client.get_menu(int(rid)),
-                }
-            ]
