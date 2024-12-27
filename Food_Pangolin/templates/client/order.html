@@ -6,90 +6,83 @@
     <title>餐點詳細資訊</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-top: 30px;
-        }
+.logout {
+    position: absolute;
+    top: 30px;
+    right:200px;
+}
 
-        .logout {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
+.center {
+    text-align: center;
+    width: 100%;
+}
 
-        table {
-            width: 80%;
-            margin: 20px 0;
-            border-collapse: collapse;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-        th, td {
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-        }
+th, td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
 
-        th {
-            background-color: #ff7043;
-            color: white;
-        }
+th {
+    background-color: #ff7043;
+    color: white;
+}
 
-        button, a {
-            background-color: #29b6f6;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin: 5px;
-            text-align: center;
-        }
+a {
+    display: inline-block;
+    background-color: #29b6f6;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+    text-align: center;
+}
 
-        button:hover, a:hover {
-            background-color: #039be5;
-        }
+a:hover {
+    background-color: #039be5;
+}
 
-        form {
-            display: inline-block;
-            margin: 0;
-        }
+button, input[type="submit"] {
+    background-color: #29b6f6;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+    text-align: center;
+}
 
-        form input[type="submit"] {
-            background-color: #ff7043;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin: 5px;
-        }
+button:hover, input[type="submit"]:hover {
+    background-color: #039be5;
+}
 
-        form input[type="submit"]:hover {
-            background-color: #ff5733;
-        }
-
-        .butt {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+.butt {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
 
     </style>
 </head>
@@ -97,7 +90,7 @@
     <form class="logout" action="/logout" method="POST">
         <input type="submit" value="登出">
     </form>
-<h1>訂單紀錄</h1>
+    <div class="center"> <h1>訂單紀錄</h1> </div>
 <table>
     <tr>
         <th>商品名稱</th>
@@ -108,7 +101,6 @@
     {% for rec in data %}
     {% for item in rec %}
     {% if not loop.last %}
-    <br>
         <tr>
             <td>{{ item.name }}</td>
             <td>{{ item.quantity }}</td>
@@ -126,7 +118,7 @@
             {% endif %}
         </tr>
     {% else %}
-    <tr><td colspan="5"><br></td></tr>
+    <tr><td style="background-color: aliceblue;" colspan="5"><br></td></tr>
     {% endif %}
     {% endfor %}
     {% endfor %}
