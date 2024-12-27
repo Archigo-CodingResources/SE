@@ -16,7 +16,7 @@ def login_required(f):
         return f(*args, **kwargs)
     return wrapper
 
-@app.route("/", methods=['GET', 'POST']) 
+@app.route("/", methods=['GET', 'POST'])
 @login_required
 def homepage():
     if session['role'] >= 0:
@@ -67,7 +67,6 @@ def finish_order():
 @app.route("/menu", methods=['GET', 'POST']) 
 @login_required
 def menu():
-     #重新載入資料庫
     if session['role'] == 0:
         dest, data = restaurant.menu(request, session)
 
