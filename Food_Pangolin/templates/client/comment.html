@@ -4,9 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        a, button {
+            background-color: #ff7043;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+            display: inline-block;
+        }
+
+        a:hover, button:hover {
+            background-color: #ff5733;
+        }
+
+        .return {
+            background-color: #29b6f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .return:hover {
+            background-color: #039be5;
+        }
+
+        .butt {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            margin:20px 20px 20px 200px;
+        }
+
+        .logout {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: absolute;
+            right: 200px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #ff7043;
+            color: white;
+        }
+
+    </style>
 </head>
 <body>  
-<a href="/feedback?rid={{data[0].rid}}">新增評論</a>
+<form class="logout" action="/logout">
+    <input type="submit" value="登出" class="return">
+</form>
+<div class="butt">
+    <a href="/feedback?rid={{data[0].rid}}">新增評論</a>
+    <button class="back-button" onclick="history.back()">返回上一頁</button>
+</div>
 <table>
     <tr>
         <th>評分</th>
@@ -26,13 +107,5 @@
     </tr>
     {% endfor %}
 </table>
-
-<button class="back-button" onclick="history.back()">返回上一頁</button>
-
-<form action="/logout">
-    <input type="submit" value="登出" class="return">
-</form>
-
-
 </body>
 </html>

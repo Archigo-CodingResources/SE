@@ -4,17 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>餐點詳細資訊</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+        }
+
+        .logout {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #ff7043;
+            color: white;
+        }
+
+        button, a {
+            background-color: #29b6f6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+            text-align: center;
+        }
+
+        button:hover, a:hover {
+            background-color: #039be5;
+        }
+
+        form {
+            display: inline-block;
+            margin: 0;
+        }
+
+        form input[type="submit"] {
+            background-color: #ff7043;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #ff5733;
+        }
+
+        .butt {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+    </style>
 </head>
 <body>
+    <form class="logout" action="/logout" method="POST">
+        <input type="submit" value="登出">
+    </form>
 <h1>餐點詳細資訊</h1>
 <table>
     <caption>訂單資訊</caption>
     <tr>
-        <td>商品名稱</td>
-        <td>商品數量</td>
-        <td>商品價格</td>
-        <td>餐點狀態</td>
-        <!-- 這裡看要不要加 單價*數量 的金額 -->
+        <th>商品名稱</th>
+        <th>商品數量</th>
+        <th>商品價格</th>
+        <th>餐點狀態</th>
     </tr>
     {% for rec in data[0].data %}
     {% if not loop.last %}
@@ -59,24 +149,22 @@
     {% endfor %}
 </table>
 
-{% if not data[0].data[0].did %}
-<a href="/own_order?oid={{ data[0].data[-1] }}" id="confirmOrderLink">確認接單</a>
-
-{% elif data[0].data[0].status == 2 and data[0].data[0].did %}
-<a href="/confirm_order?cid={{ data[0].data[0].cid }}&time={{data[0].data[0].time}}&total={{data[0].total}}&rid={{data[0].data[0].r_id}}" id="finishOrderLink">完成送單</a>
-{% endif %}
-
-
-<a href="/own_order">查看已接訂單</a>
-
-
-<a href="/">返回訂單列表</a>
-
-
-<form action="/logout" method="POST">
-    <input type="submit" value="登出">
-</form>
-
+<div class="butt">
+    
+    {% if not data[0].data[0].did %}
+    <a href="/own_order?oid={{ data[0].data[-1] }}" id="confirmOrderLink">確認接單</a>
+    
+    {% elif data[0].data[0].status == 2 and data[0].data[0].did %}
+    <a href="/confirm_order?cid={{ data[0].data[0].cid }}&time={{data[0].data[0].time}}&total={{data[0].total}}&rid={{data[0].data[0].r_id}}" id="finishOrderLink">完成送單</a>
+    {% endif %}
+    
+    
+    <a href="/own_order">查看已接訂單</a>
+    
+    
+    <a href="/">返回訂單列表</a>
+    
+</div>
 
 <script>
     document.getElementById('finishOrderLink').addEventListener('click', function (event) {

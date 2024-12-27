@@ -4,8 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+        }
+
+        p {
+            text-align: center;
+            color: #777;
+        }
+
+        .logout {
+            position: absolute;
+            top: 50px;
+            right: 200px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #ff7043;
+            color: white;
+        }
+
+        td a {
+            display: inline-block;
+            background-color: #29b6f6;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        td a:hover {
+            background-color: #039be5;
+        }
+
+        input[type="submit"] {
+            background-color: #29b6f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #039be5;
+        }
+
+        section {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+    </style>
 </head>
 <body>
+<form class="logout" action="/logout">
+    <input type="submit" value="登出" class="return">
+</form>
 <section>
     <h1>餐廳列表</h1>
     <!-- 顯示當前用戶的名稱 -->
@@ -29,12 +109,6 @@
         </tr>
         {% endfor %}
     </table>
-    <!-- 返回個人頁面 -->
-    <div class="buttons">
-        <form action="/logout">
-            <input type="submit" value="登出" class="return">
-        </form>
-    </div>
 </section>
 </body>
 </html>
