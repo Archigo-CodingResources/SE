@@ -4,8 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>訂單系統</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+        }
+        
+        .action-buttons, .logout {
+            position: absolute;
+            top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-buttons {
+            right: 150px; /* 根據需要調整位置 */
+        }
+        
+        .logout {
+            top: 30px;
+            right: 550px;
+        }
+        
+        form {
+            text-align: center; /* 讓按鈕居中 */
+        }
+        
+        table {
+            width: 45%;  /* 調整寬度，使表格更加窄 */
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #ff7043;
+            color: white;
+        }
+        
+        button, input[type="submit"] {
+            background-color: #29b6f6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+            text-align: center;
+        }
+        
+        button:hover, input[type="submit"]:hover {
+            background-color: #039be5;
+        }
+        
+        button {
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+    </style>
 </head>
 <body>
+    <form class="logout" action="/logout" method="POST">
+        <input type="submit" value="登出">
+    </form>
     <h1>平台總結</h1>
 
     <!-- 按鈕：餐廳、客戶、外送員 -->
@@ -46,10 +124,6 @@
         </tbody>
     </table>
     {% endif %}
-
-    <form action="/logout" method="POST">
-        <input type="submit" value="登出">
-    </form>
 
 </body>
 </html>

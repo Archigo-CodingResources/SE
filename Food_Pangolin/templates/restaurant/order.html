@@ -4,9 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>訂單內容</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .logout {
+            position: absolute;
+            top: 50px;
+            right: 200px;
+        }
+        
+        a {
+            display: inline-block;
+            background-color: #29b6f6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+            text-align: center;
+        }
+        
+        a:hover {
+            background-color: #039be5;
+        }
+        
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        td{
+            background-color: bisque;
+        }
+        
+        th {
+            background-color: #ff7043;
+            color: white;
+        }
+        
+        button, input[type="submit"] {
+            background-color: #29b6f6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+            text-align: center;
+        }
+        
+        button:hover, input[type="submit"]:hover {
+            background-color: #039be5;
+        }
+        
+        .butt {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .center {
+            text-align: center;
+            width: 100%;
+        }
+        
+    </style>
 </head>
 <body>
-    <p>歡迎，{{data[0].name}}！</p>
+<form class="logout" action="/logout" method="POST">
+    <input type="submit" value="登出">
+</form>
+<div class="center"> 
+    <h1>歡迎，{{data[0].name}}！</h1> 
+    <a href="/menu?id={{ session['id'] }}">view menu</a>
+</div>
 <table>
     <tr>
         <th>商品</th>
@@ -18,12 +109,14 @@
     {% for items in data[0].data %}
     {% set total = items[-1] %}
     {% if items[0].status < 2%}
-    <tr><td colspan="5"><hr></td></tr>
+    <tr><td colspan="5" style="background-color: #f8f8f8"><br></td></tr>
     <tr>
-        <td colspan="2">總金額：{{ total }} $</td>
-        <td>
+        <td style="background-color: #ddf;" colspan="2">總金額：{{ total }} $</td>
+        <td style="background-color: #ddf;">
             <a href="/finish_order?cid={{ items[0].cid }}&time={{ items[0].time }}">製作完成</a>
         </td>
+        <td>{{ items[0].cid }}</td>
+        <td>{{ items[0].time }}</td>
     </tr>
     {% endif %}
     {% for item in items %}
@@ -33,8 +126,6 @@
             <td>{{ item.name }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{ item.price }} $</td>
-            <td>{{ item.cid }}</td>
-            <td>{{ item.time }}</td>
         </tr>
         {% endif %}
         {% endif %}
@@ -42,12 +133,5 @@
     {% endfor %}
     
 </table>
-
-<a href="/menu?id={{ session['id'] }}">view menu</a>
-
-<form action="/logout" method="POST">
-    <input type="submit" value="登出">
-</form>
-
 </body>
 </html>

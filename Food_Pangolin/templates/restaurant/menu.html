@@ -4,9 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>菜單內容</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .logout {
+            position: absolute;
+            top: 25px;
+            right: 200px;
+        }
+        
+        .butt {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0; /* 根據需要調整 */
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+        }
+        
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #ff7043;
+            color: white;
+        }
+        
+        a {
+            display: inline-block;
+            background-color: #29b6f6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+            text-align: center;
+        }
+        
+        a:hover {
+            background-color: #039be5;
+        }
+        
+        button, input[type="submit"] {
+            background-color: #29b6f6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+            text-align: center;
+        }
+        
+        button:hover, input[type="submit"]:hover {
+            background-color: #039be5;
+        }
+        
+        .buttwrap {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+    </style>
 </head>
 <body>
-<a href="/addfoodUI?id={{ data[0].rid }}&action=add">新增</a>
+<form class="logout" action="/logout" method="POST">
+    <input type="submit" value="登出">
+</form>
+<div class="butt">
+    <a href="/addfoodUI?id={{ data[0].rid }}&action=add">新增</a>
+    <a href="/">返回訂單</a>
+</div>
 <table>
     <tr>
         <th>餐點名稱</th>
@@ -29,11 +120,6 @@
     {% endfor %}
 </table>
 
-<a href="/">返回菜單</a>
-
-<form action="/logout" method="POST">
-    <input type="submit" value="登出">
-</form>
 
 </body>
 </html>
