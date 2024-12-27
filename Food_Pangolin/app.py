@@ -127,9 +127,13 @@ def submit_feedback_form():
 
 @app.route("/show_comment",methods=["GET"])
 def show_comment():
-    data = client.show_comment(request)
-    if not data:
-        data = [{"rid":request.args['id']}]
+    comments = client.show_comment(request)
+    data = [
+        {
+            "rid":request.args['id'],
+            "data":comments
+            }
+            ]
     return render_template("/client/comment.html", data=data)
 
 @app.route("/register", methods=['GET', 'POST'])
