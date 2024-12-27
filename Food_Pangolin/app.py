@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, flash
 from functools import wraps
-from controllers import general,restaurant,client,delivery
+from controllers import general, restaurant, client, delivery
 
 app = Flask(__name__, static_folder="static", static_url_path="/")
 app.config['SECRET_KEY'] = '123TyU%^&'
@@ -16,7 +16,45 @@ def login_required(f):
         return f(*args, **kwargs)
     return wrapper
 
+<<<<<<< HEAD
 @app.route("/", methods=['GET', 'POST'])
+=======
+#===========================================================#
+#                                                           #
+#                            通用                           #
+#                                                           #
+#===========================================================#
+
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    if request.method == "POST":
+        status, wrong = general.register(request)
+        if status:
+            return render_template("/login.html")
+        flash(wrong)
+    return render_template("/register.html")  # 如果註冊失敗，跳回註冊界面
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    if request.method == "GET":
+        return render_template("/login.html")
+    
+    status, wrong = general.login(request)
+    
+    if not status:
+        flash(wrong)
+        return render_template("/login.html")
+    
+    return redirect("/")
+
+@app.route("/logout", methods=['GET', 'POST'])
+def logout():
+    session.clear()
+    return redirect("/")
+
+
+@app.route("/", methods=['GET', 'POST']) 
+>>>>>>> 843f131b1f5a83c465d12c16bf5aed98bcc9928d
 @login_required
 def homepage():
     if session['role'] >= 0:
@@ -24,6 +62,25 @@ def homepage():
     else:
         dest, data = general.homepage_admin(request)
     return render_template(dest, data=data)
+
+@app.route("/menu", methods=['GET', 'POST']) 
+@login_required
+def menu():
+     #重新載入資料庫
+    if session['role'] == 0:
+        dest, data = restaurant.menu(request, session)
+
+    elif session['role'] == 2: 
+        dest, data = client.menu(request, session)
+    
+    return render_template(dest, data=data)
+
+
+#===========================================================#
+#                                                           #
+#                            餐廳                           #
+#                                                           #
+#===========================================================#
 
 
 
@@ -63,6 +120,7 @@ def finish_order():
     restaurant.finish_order(request, session)
     return redirect("/")
 
+<<<<<<< HEAD
 
 @app.route("/menu", methods=['GET', 'POST']) 
 @login_required
@@ -75,6 +133,13 @@ def menu():
     
     return render_template(dest, data=data)
 
+=======
+#===========================================================#
+#                                                           #
+#                            客戶                           #
+#                                                           #
+#===========================================================#
+>>>>>>> 843f131b1f5a83c465d12c16bf5aed98bcc9928d
 
 
 @app.route("/cart", methods=['GET', 'POST']) 
@@ -91,25 +156,6 @@ def cart(): #購物車功能
 def order_list():
     data = client.get_order(request)
     return render_template("client/order.html", data=data)
-
-
-@app.route("/info", methods=["GET"])
-def order_info():
-    data = delivery.order_info(request)
-    return render_template("/delivery/order_info.html", data=data)
-
-@app.route("/own_order", methods=["GET"])
-def own_order_list():
-    
-    data = delivery.own_order(request, session)
-
-    return render_template("/delivery/own_order_list.html", data=data)
-
-@app.route("/confirm_order", methods=["GET"])
-def confirm_order():
-    
-    delivery.confirm_order(request, session)
-    return redirect("/own_order")
 
 
 @app.route("/feedback", methods=["GET"])
@@ -135,29 +181,27 @@ def show_comment():
             ]
     return render_template("/client/comment.html", data=data)
 
-@app.route("/register", methods=['GET', 'POST'])
-def register():
-    if request.method == "POST":
-        status, wrong = general.register(request)
-        if status:
-            return render_template("/login.html")
-        flash(wrong)
-    return render_template("/register.html")  # 如果註冊失敗，跳回註冊界面
 
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    if request.method == "GET":
-        return render_template("/login.html")
-    
-    status, wrong = general.login(request)
-    
-    if not status:
-        flash(wrong)
-        return render_template("/login.html")
-    
-    return redirect("/")
+#===========================================================#
+#                                                           #
+#                           外送員                          #
+#                                                           #
+#===========================================================#
 
-@app.route("/logout", methods=['GET', 'POST'])
-def logout():
-    session.clear()
-    return redirect("/")
+@app.route("/info", methods=["GET"])
+def order_info():
+    data = delivery.order_info(request)
+    return render_template("/delivery/order_info.html", data=data)
+
+@app.route("/own_order", methods=["GET"])
+def own_order_list():
+    
+    data = delivery.own_order(request, session)
+
+    return render_template("/delivery/own_order_list.html", data=data)
+
+@app.route("/confirm_order", methods=["GET"])
+def confirm_order():
+    
+    delivery.confirm_order(request, session)
+    return redirect("/own_order")
