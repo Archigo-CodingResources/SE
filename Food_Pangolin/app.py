@@ -16,9 +16,6 @@ def login_required(f):
         return f(*args, **kwargs)
     return wrapper
 
-<<<<<<< HEAD
-@app.route("/", methods=['GET', 'POST'])
-=======
 #===========================================================#
 #                                                           #
 #                            通用                           #
@@ -54,7 +51,6 @@ def logout():
 
 
 @app.route("/", methods=['GET', 'POST']) 
->>>>>>> 843f131b1f5a83c465d12c16bf5aed98bcc9928d
 @login_required
 def homepage():
     if session['role'] >= 0:
@@ -120,26 +116,11 @@ def finish_order():
     restaurant.finish_order(request, session)
     return redirect("/")
 
-<<<<<<< HEAD
-
-@app.route("/menu", methods=['GET', 'POST']) 
-@login_required
-def menu():
-    if session['role'] == 0:
-        dest, data = restaurant.menu(request, session)
-
-    elif session['role'] == 2: 
-        dest, data = client.menu(request, session)
-    
-    return render_template(dest, data=data)
-
-=======
 #===========================================================#
 #                                                           #
 #                            客戶                           #
 #                                                           #
 #===========================================================#
->>>>>>> 843f131b1f5a83c465d12c16bf5aed98bcc9928d
 
 
 @app.route("/cart", methods=['GET', 'POST']) 
