@@ -5,16 +5,17 @@ cursor, conn = init.get_cursor()
 def compose_order(cart_data):
     grouped_by_cid_time = {}
 
-    # 按 (cid, time) 分组
+    # 按 (cid, time) 分組
     for item in cart_data:
-        key = (item['cid'], item['time'])  # 使用 (cid, time) 作为分组键
+        key = (item['cid'], item['time']) #使用(cid, time)作为分组键
         if key not in grouped_by_cid_time:
-            grouped_by_cid_time[key] = []
-        grouped_by_cid_time[key].append(item)
+            grouped_by_cid_time[key] = [] #如果該組合不存在，則創建一個新的分組
+        grouped_by_cid_time[key].append(item) #將當前項目添加到相應分組
 
-    # 将分组结果转换为列表
+    # 將分組結果轉換為列表
     grouped_by_cid_time = list(grouped_by_cid_time.values())
     
+    # 計算每個分組的總金額
     for items in grouped_by_cid_time:
         total = 0
         for item in items:
@@ -22,7 +23,7 @@ def compose_order(cart_data):
 
         items.append(total)
 
-    return grouped_by_cid_time
+    return grouped_by_cid_time 
 
 
 def get_menu(rid):
@@ -67,8 +68,7 @@ def get_food(food_id):
 def fix_item(name, description, price, food_id):
     sql = "UPDATE food SET name=%s, description=%s, price=%s WHERE food_id=%s;"
     param = (name, description, price, food_id)
-    cursor.execute(sql, param)
+    cursor.execute(sql, param) #執行更新操作
     conn.commit()
     return
     
-

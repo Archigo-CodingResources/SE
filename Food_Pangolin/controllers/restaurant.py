@@ -1,16 +1,14 @@
-
-
 from modules import restaurant
 from controllers.general import reload_db
 
 
-def menu(request, session):
+def menu(request, session): #重新加載DB
     reload_db()
     if request.method == "GET":
         form = request.args
         rid = form['id']
-        if "action" in form and form['action'] == "remove":
-            restaurant.remove_item(rid, form['food_id'])
+        if "action" in form and form['action'] == "remove":# 如果請求中包含"action"參數並且值為"remove"
+            restaurant.remove_item(rid, form['food_id']) # 刪除指定的菜品
 
         data = [
             {
@@ -61,7 +59,7 @@ def fix_food(request):
     name = form['NAME']
     description = form['DESCRIPTION']
     price = form['PRICE']
-    restaurant.fix_item(name, description, price, food_id)
+    restaurant.fix_item(name, description, price, food_id) #修改菜品信息
     dest = f'/menu?id={rid}'
 
     return dest
@@ -72,4 +70,4 @@ def finish_order(request, session):
     time = args['time']
     rid = session['id']
 
-    restaurant.update_order(cid, time, rid)
+    restaurant.update_order(cid, time, rid) #更新訂單狀態為完成
