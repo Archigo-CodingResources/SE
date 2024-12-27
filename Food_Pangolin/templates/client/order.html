@@ -99,7 +99,6 @@
     </form>
 <h1>訂單紀錄</h1>
 <table>
-    <caption>訂單資訊</caption>
     <tr>
         <th>商品名稱</th>
         <th>商品數量</th>
@@ -115,7 +114,15 @@
             <td>{{ item.quantity }}</td>
             <td>{{ item.price }} $</td>
             {% if loop.first %}
-            <td>{{item.status}}</td>
+            {% if item.status == 3 %}
+            <td>餐點已送達</td>
+            {% elif item.status == 2 and not item.did %}
+            <td>餐點已完成</td>
+            {% elif item.status == 2 and item.did%}
+            <td>訂單已接受</td>
+            {% elif item.status == 0 %}
+            <td>訂單已送出</td>
+            {% endif %}
             {% endif %}
         </tr>
     {% else %}
