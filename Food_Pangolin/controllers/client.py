@@ -1,4 +1,4 @@
-from modules import init, client
+from modules import init, client, restaurant
 from controllers.general import reload_db
 from datetime import datetime
 
@@ -82,11 +82,16 @@ def cart(request, session):
     
     return data
 
+def get_order(request):
+    cid = request.form['id']
+    data = client.get_order(cid)
+    order_data = restaurant.compose_order(data)
+    return order_data
+
 def submit_feedback(request):
     rating = request.form['rating']
     feedback = request.form['feedback']
     rid = request.form['rid']
-    print(request.form)
     client.submit_feedback(rating, feedback, rid)
 
 def show_comment(request):

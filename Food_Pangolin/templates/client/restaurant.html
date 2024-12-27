@@ -86,6 +86,10 @@
 <form class="logout" action="/logout">
     <input type="submit" value="登出" class="return">
 </form>
+<form class="order" action="/order" method="POST">
+    <input type="hidden" name="id" value="{{session['id']}}">
+    <input type="submit" value="查看訂單" class="return">
+</form>
 <section>
     <h1>餐廳列表</h1>
     <!-- 顯示當前用戶的名稱 -->
