@@ -110,7 +110,7 @@ button:hover, input[type="submit"]:hover {
             <td>餐點已送達</td>
             {% elif item.status == 2 and not item.did %}
             <td>餐點已完成</td>
-            {% elif item.status == 2 and item.did%}
+            {% elif item.status == 0 and item.did%}
             <td>訂單已接受</td>
             {% elif item.status == 0 %}
             <td>訂單已送出</td>
