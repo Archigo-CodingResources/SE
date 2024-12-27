@@ -74,6 +74,12 @@ def update_cart(food_id, quantity, cid):
     conn.commit()
     return
 
+def get_order(cid):
+    sql = "SELECT * FROM `the_order` inner join food on the_order.food_id = food.food_id where cid = %s;"
+    param = (cid, )
+    cursor.execute(sql, param)
+    return cursor.fetchall()
+
 def send_order(rid, food_id, quantity, cid, address, now):
     sql = "INSERT INTO `the_order`(`rid`, `food_id`, `cid`, `did`, `quantity`, `address`, `time`, `status`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
     param = (rid, food_id, cid, None, quantity, address, now, 0, ) #訂單狀態默認為0

@@ -35,7 +35,7 @@ def login(request):
     #檢查用戶憑據
     user_from_mail = init.check_account(mail)
 
-    if user_from_mail == []:
+    if user_from_mail == [] or pwd != user_from_mail[0]['pwd']:
         return False, "輸入錯誤，請重新輸入"
     
    #登錄成功後，保存資料到session

@@ -87,11 +87,16 @@ def cart(): #購物車功能
     return render_template("client/cart.html", data=data)
 
 
+@app.route("/order", methods=["POST"])
+@login_required
+def order_list():
+    data = client.get_order(request)
+    return render_template("client/order.html", data=data)
+
+
 @app.route("/info", methods=["GET"])
 def order_info():
-    
     data = delivery.order_info(request)
-
     return render_template("/delivery/order_info.html", data=data)
 
 @app.route("/own_order", methods=["GET"])
