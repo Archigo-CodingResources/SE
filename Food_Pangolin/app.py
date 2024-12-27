@@ -119,18 +119,18 @@ def show_feedback_form():
     return render_template("/client/feedback.html", data=data)
 
 
-@app.route("/submit_feedback", methods=["POST"])
-def submit_feedback_form():
-    client.submit_feedback(request)
-    return redirect("/")
-
-
-@app.route("/show_comment",methods=["GET"])
+@app.route("/show_comment",methods=["GET", "POST"])
 def show_comment():
+    if request.method == "GET":
+        rid = request.args['id']
+
+    else:
+        client.submit_feedback(request)
+        rid = request.form['rid']
     comments = client.show_comment(request)
     data = [
         {
-            "rid":request.args['id'],
+            "rid": rid,
             "data":comments
             }
             ]

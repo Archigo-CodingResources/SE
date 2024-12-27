@@ -92,11 +92,18 @@ def submit_feedback(request):
     rating = request.form['rating']
     feedback = request.form['feedback']
     rid = request.form['rid']
+    print(rating, feedback, rid)
     client.submit_feedback(rating, feedback, rid)
 
 def show_comment(request):
     reload_db()
-    form = request.args
-    rid = form['id']
+    if request.method == "GET":
+        form = request.args
+        rid = form['id']
+
+    else:
+        args = request.form
+        rid = args['rid']
+
     data = client.get_comment(rid)
     return data
