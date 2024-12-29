@@ -3,37 +3,36 @@
 ```
 Food_Pangolin
 ├── app.py
-├── dbutils.py
-├── static
-│   ├── many many many photo
-│   ├── login.html
-│   └── register.html
-├── templates
-│   ├── client
-│   │   ├── restaurant.html
-│   │   ├── menu.html
-│   │   ├── cart.html
-│   │   ├── comment.html
-│   │   └── feedback.html
-│   ├── restaurant
-│   │   ├── addfoodUI.html
-│   │   ├── fixfoodUI.html
-│   │   ├── menu.html
-│   │   └── order.html
-│   └── delivery
-│   │   ├── order_list.html
-│   │   ├── own_order_list.html
-│   │   └── order_info.html
-│   └── platform
-│   │   └── summary.html
 ├── controllers
-│   ├── client.py
-│   ├── restaurant.py
-│   ├── delivery.py
-└── modules
-    ├── init.py
-    ├── client.py
-    ├── restaurant.py
-    └── delivery.py
-
+│   ├── client.py
+│   ├── delivery.py
+│   ├── general.py
+│   └── restaurant.py
+├── modules
+│   ├── client.py
+│   ├── delivery.py
+│   ├── init.py
+│   └── restaurant.py
+├── run.bat
+└── templates
+    ├── client
+    │   ├── cart.html
+    │   ├── comment.html
+    │   ├── feedback.html
+    │   ├── menu.html
+    │   ├── order.html
+    │   └── restaurant.html
+    ├── delivery
+    │   ├── order_info.html
+    │   ├── order_list.html
+    │   └── own_order_list.html
+    ├── login.html
+    ├── platform
+    │   └── summary.html
+    ├── register.html
+    └── restaurant
+        ├── addfoodUI.html
+        ├── fixfoodUI.html
+        ├── menu.html
+        └── order.html
 ```
